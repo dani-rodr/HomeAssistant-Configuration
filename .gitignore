@@ -1,3 +1,49 @@
 *
+**
 !configuration.yaml
 !.storage/lovelace
+!esphome/*.yaml
+!esphome/update.ps1
+
+esphome/secrets.yaml
+
+############# Failsafe  \/ \/ \/ \/ \/ #############
+
+# File Ignores
+home-assistant.log.*
+remote_cmd.yaml
+**secrets.yaml
+shell_command.yaml
+**/test.yaml
+/zigbee2mqtt/*.yaml
+
+# Generic ignores
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+
+# Directory (contents) ignores
+/blueprints/automation/test**
+/blueprints/script/test**
+/Purgatory**
+/scripts/
+/themes**
+/www**
+/.storage/auth**
+/.storage/cloud**
+/.storage/core**
+/.storage/hacs**
+/.storage/http
+*/deps**
+*/image**
+*/pop.git**
+*test**
+
+# Ignore files created by IDE's
+*&/.vscode**
+*/.theia**
+*/.Trash**
