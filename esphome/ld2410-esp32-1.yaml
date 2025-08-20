@@ -1,0 +1,58 @@
+esphome:
+  name: sala-motion-sensor
+  friendly_name: Sala Motion Sensor
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+  level: ERROR
+  baud_rate: 0
+
+ota:
+  - platform: esphome
+    password: "3373716c7967d461cf4bd0ce1ba42e9a"
+
+esp32_ble_tracker:
+  scan_parameters:
+    continuous: true
+    interval: 211ms
+    window: 120ms
+    active: True
+
+bluetooth_proxy:
+  active: true
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  reboot_timeout:
+    minutes: 1
+  manual_ip:
+    static_ip: 192.168.0.220
+    gateway: 192.168.0.1
+    subnet: 255.255.255.0
+
+light:
+  - platform: binary
+    name: "Blue Status Light"
+    output: light_output
+    id: led_light
+    restore_mode: ALWAYS_OFF
+api:
+
+output:
+  - platform: gpio
+    pin: GPIO2
+    id: light_output
+
+substitutions:
+  throttle: 1000ms
+  tx_pin: RX
+  rx_pin: TX
+
+packages:
+  sensor1: !include ld2410.base.yaml

@@ -1,0 +1,123 @@
+esphome:
+  name: smart-plug-2
+  friendly_name: Smart Plug Base
+
+logger:
+  baud_rate: 0 # (UART logging interferes with cse7766)
+  logs:
+    sensor: ERROR # (Overide any global setting, to VERBOSE will spamming the cse7766 sensors)
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+  parity: EVEN
+
+globals:
+  - id: unfiltered_power
+    type: float
+    restore_value: no
+    initial_value: '0.0'
+
+binary_sensor:
+  - platform: gpio
+    device_class: plug
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Sonoff S31 Button"
+    on_press:
+      - switch.toggle: relay
+  - platform: status
+    name: "Sonoff S31 Status"
+
+  - platform: template
+    name: "Power Exceeds Threshold"
+    device_class: plug
+    lambda: |-
+      float threshold = id(power_on_threshold).state;  // Get the current state of the input_number
+      return id(unfiltered_power) > threshold;  // Compare with the unfiltered power
+
+number: 
+  - platform: template
+    name: "Power on Threshold"
+    id: power_on_threshold
+    min_value: 0.0
+    max_value: 100
+    step: 1
+    initial_value: 0.0
+    mode: slider
+    optimistic: True
+    restore_value: True
+
+sensor:
+  - platform: wifi_signal
+    name: "Sonoff S31 WiFi Signal"
+    update_interval: 60s
+  - platform: cse7766
+    current:
+      name: "Sonoff S31 Current"
+      accuracy_decimals: 2
+      filters:
+        - throttle_average: 60s
+    voltage:
+      name: "Sonoff S31 Voltage"
+      accuracy_decimals: 2
+      filters:
+        - throttle_average: 60s
+    power:
+      name: "Sonoff S31 Power (Unfiltered)"
+      accuracy_decimals: 2
+      id: my_power
+      disabled_by_default: true
+      filters:  # No throttling here, raw real-time values
+        - throttle: 1s
+        - lambda: |-
+            id(unfiltered_power) = x; 
+            return x;
+    energy:
+      name: "Sonoff S31 Energy"
+      accuracy_decimals: 2
+      filters:
+        - throttle: 60s
+    apparent_power: #(only available with version 2024.3.0 or greater)
+      name: "Sonoff S31 Apparent Power"
+      filters:
+        - throttle_average: 60s
+    power_factor: #(only available with version 2024.3.0 or greater)
+      name: "Sonoff S31 Power Factor"
+      accuracy_decimals: 2
+      filters:
+        - throttle_average: 60s
+
+  - platform: total_daily_energy #(Optional, not specific to cse7766)
+    name: "Sonoff S31 Daily Energy"
+    power_id: my_power
+    accuracy_decimals: 2
+
+  - platform: template
+    name: "Sonoff S31 Power"
+    device_class: power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 2
+    update_interval: 60s  # Update every 60s
+    lambda: |-
+      return id(unfiltered_power);
+    filters:
+      - throttle_average: 60s
+switch:
+  - platform: gpio
+    name: "Sonoff S31 Relay"
+    pin: GPIO12
+    id: relay
+    restore_mode: ALWAYS_ON
+
+time:
+  - platform: sntp #(required for total_daily_energy)
+    id: my_time
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: True
+    

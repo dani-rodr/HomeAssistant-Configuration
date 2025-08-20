@@ -1,0 +1,378 @@
+uart:
+  id: ld2410_uart
+  tx_pin: ${tx_pin}
+  rx_pin: ${rx_pin}
+  baud_rate: 256000
+  parity: NONE
+  stop_bits: 1
+
+ld2410:
+  uart_id: ld2410_uart
+  id: ld2410_comp
+
+globals:
+  - id: occupancy_timeout_value
+    type: int
+    restore_value: True
+    initial_value: "0"
+select:
+  - platform: ld2410
+    distance_resolution:
+      name: distance resolution
+    baud_rate:
+      name: baud rate
+    light_function:
+      name: light function
+    out_pin_level:
+      name: out pin level
+
+button:
+  - platform: ld2410
+    factory_reset:
+      name: "factory reset"
+      disabled_by_default: True
+    restart:
+      name: "restart"
+    query_params:
+      name: query params
+
+  - platform: restart
+    name: "Restart ESP32"
+
+  - platform: template
+    name: "Manual Clear"
+    on_press:
+      then:
+        script.execute: "manual_clear"
+
+number:
+  - platform: ld2410
+    timeout:
+      name: timeout
+    max_move_distance_gate:
+      name: max move distance gate
+    max_still_distance_gate:
+      name: max still distance gate
+    g0:
+      move_threshold:
+        name: g0 move threshold
+        id: ld2410_g0_move_threshold
+      still_threshold:
+        name: g0 still threshold
+        id: ld2410_g0_still_threshold
+    g1:
+      move_threshold:
+        name: g1 move threshold
+        id: ld2410_g1_move_threshold
+      still_threshold:
+        name: g1 still threshold
+        id: ld2410_g1_still_threshold
+    g2:
+      move_threshold:
+        name: g2 move threshold
+        id: ld2410_g2_move_threshold
+      still_threshold:
+        name: g2 still threshold
+        id: ld2410_g2_still_threshold
+    g3:
+      move_threshold:
+        name: g3 move threshold
+        id: ld2410_g3_move_threshold
+      still_threshold:
+        name: g3 still threshold
+        id: ld2410_g3_still_threshold
+    g4:
+      move_threshold:
+        name: g4 move threshold
+        id: ld2410_g4_move_threshold
+      still_threshold:
+        name: g4 still threshold
+        id: ld2410_g4_still_threshold
+    g5:
+      move_threshold:
+        name: g5 move threshold
+        id: ld2410_g5_move_threshold
+      still_threshold:
+        name: g5 still threshold
+        id: ld2410_g5_still_threshold
+    g6:
+      move_threshold:
+        name: g6 move threshold
+        id: ld2410_g6_move_threshold
+      still_threshold:
+        name: g6 still threshold
+        id: ld2410_g6_still_threshold
+    g7:
+      move_threshold:
+        name: g7 move threshold
+        id: ld2410_g7_move_threshold
+      still_threshold:
+        name: g7 still threshold
+        id: ld2410_g7_still_threshold
+    g8:
+      move_threshold:
+        name: g8 move threshold
+        id: ld2410_g8_move_threshold
+      still_threshold:
+        name: g8 still threshold
+        id: ld2410_g8_still_threshold
+    light_threshold:
+      name: light threshold
+
+  - platform: template
+    name: "Still Target Delay"
+    id: still_target_delay
+    min_value: 0
+    max_value: 150
+    step: 1
+    initial_value: 0
+    mode: slider
+    optimistic: True
+    restore_value: True
+    on_value:
+      then:
+        - if:
+            condition:
+              script.is_running: countdown_start
+            then:
+              - script.execute: countdown_start
+
+text_sensor:
+  - platform: ld2410
+    version:
+      name: "Presence sensor version"
+    mac_address:
+      name: "Presence sensor mac address"
+
+switch:
+  - platform: template
+    name: "Auto Calibrate"
+    optimistic: True
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: ld2410
+    bluetooth:
+      name: "control Bluetooth"
+
+    engineering_mode:
+      name: "engineering mode"
+      id: "engineering_mode"
+      restore_mode: RESTORE_DEFAULT_OFF
+
+sensor:
+  - platform: ld2410
+    moving_distance:
+      name: "Moving distance (cm)"
+      disabled_by_default: True
+    still_distance:
+      name: "Still Distance (cm)"
+      disabled_by_default: True
+    moving_energy:
+      name: "Move Energy (%)"
+      disabled_by_default: True
+    still_energy:
+      name: "Still Energy (%)"
+      disabled_by_default: True
+    detection_distance:
+      name: "Distance Detection (cm)"
+      disabled_by_default: True
+    g0:
+      move_energy:
+        name: g0 move energy
+        id: ld2410_g0_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g0 still energy
+        id: ld2410_g0_still_energy
+        filters:
+        - filter_out: nan
+    g1:
+      move_energy:
+        name: g1 move energy
+        id: ld2410_g1_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g1 still energy
+        id: ld2410_g1_still_energy
+        filters:
+        - filter_out: nan
+    g2:
+      move_energy:
+        name: g2 move energy
+        id: ld2410_g2_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g2 still energy
+        id: ld2410_g2_still_energy
+        filters:
+        - filter_out: nan
+    g3:
+      move_energy:
+        name: g3 move energy
+        id: ld2410_g3_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g3 still energy
+        id: ld2410_g3_still_energy
+        filters:
+        - filter_out: nan
+    g4:
+      move_energy:
+        name: g4 move energy
+        id: ld2410_g4_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g4 still energy
+        id: ld2410_g4_still_energy
+        filters:
+        - filter_out: nan
+    g5:
+      move_energy:
+        name: g5 move energy
+        id: ld2410_g5_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g5 still energy
+        id: ld2410_g5_still_energy
+        filters:
+        - filter_out: nan
+    g6:
+      move_energy:
+        name: g6 move energy
+        id: ld2410_g6_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g6 still energy
+        id: ld2410_g6_still_energy
+        filters:
+        - filter_out: nan
+    g7:
+      move_energy:
+        name: g7 move energy
+        id: ld2410_g7_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g7 still energy
+        id: ld2410_g7_still_energy
+        filters:
+        - filter_out: nan
+    g8:
+      move_energy:
+        name: g8 move energy
+        id: ld2410_g8_move_energy
+        filters:
+        - filter_out: nan
+      still_energy:
+        name: g8 still energy
+        id: ld2410_g8_still_energy
+        filters:
+        - filter_out: nan
+    light:
+      name: light
+
+  - platform: uptime
+    name: "Uptime Sensor"
+    update_interval: 300s
+
+  - platform: template
+    name: "Occupancy Timeout"
+    id: occupancy_timeout
+    unit_of_measurement: "s"
+    accuracy_decimals: 0
+    lambda: return id(occupancy_timeout_value);
+    update_interval: 1s
+
+binary_sensor:
+  - platform: ld2410
+    has_target:
+      name: Presence
+      id: has_target
+      on_state:
+        then:
+          if:
+            condition:
+              and:
+                - binary_sensor.is_off: has_target
+                - binary_sensor.is_on: smart_presence
+            then:
+              - lambda: id(smart_presence_unfiltered).publish_state(false);
+              - script.execute: countdown_start
+
+    has_moving_target:
+      name: Moving Target
+      id: has_moving_target
+      on_press:
+        then:
+          if:
+            condition:
+              binary_sensor.is_on: has_moving_target
+            then:
+              - lambda: |-
+                  id(smart_presence_unfiltered).publish_state(true);
+                  id(smart_presence).publish_state(true);
+                  id(countdown_stop).execute();
+
+    has_still_target:
+      name: Still Target
+      id: has_still_target
+      on_state:
+        then:
+           - if:
+              condition:
+                and:
+                  - binary_sensor.is_on: smart_presence
+                  - binary_sensor.is_on: has_still_target
+              then:
+                - script.execute: countdown_stop
+
+  - platform: template
+    name: Smart Presence
+    id: smart_presence
+    device_class: motion
+    trigger_on_initial_state: True
+    lambda: return ((int)(id(occupancy_timeout_value)) > 0);
+
+  - platform: template
+    name: Smart Presence Unfiltered
+    id: smart_presence_unfiltered
+    device_class: motion
+    trigger_on_initial_state: True
+
+script:
+  - id: "manual_clear"
+    mode: restart
+    then:
+      - lambda: |-
+          id(smart_presence_unfiltered).publish_state(false);
+          id(smart_presence).publish_state(false);
+          id(occupancy_timeout_value) = 0;
+          // id(occupancy_timeout).publish_state(0);
+      - script.stop: countdown_start
+
+  - id: "countdown_stop"
+    then:
+        - lambda: |-
+            int delay = int(id(still_target_delay).state);
+            // id(occupancy_timeout).publish_state(delay);
+            id(occupancy_timeout_value) = delay;
+        - script.stop: countdown_start
+
+  - id: "countdown_start"
+    mode: restart
+    then:
+     # - lambda: id(occupancy_timeout).publish_state(int(id(still_target_delay).state));
+      - lambda: id(occupancy_timeout_value) = int(id(still_target_delay).state);
+      - repeat:
+          count: !lambda "return id(still_target_delay).state;"
+          then:
+            - delay: 1s
+            # - lambda: id(occupancy_timeout).publish_state(id(occupancy_timeout).state - 1);
+            - lambda: id(occupancy_timeout_value)--;
+      - script.execute: manual_clear
