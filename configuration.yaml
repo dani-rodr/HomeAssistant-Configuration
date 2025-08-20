@@ -1,0 +1,382 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+mobile_app:
+
+# Example configuration.yaml entry with include and exclude
+recorder:
+  exclude:
+    entity_globs:
+      - sensor.*browser
+      - sensor.ceiling_fan_device_time
+
+      - sensor.ld2410_esp32*
+      - sensor.esp32_presence_bedroom*
+      - sensor.z_esp32_c6*
+      - binary_sensor.z_esp32_c6*
+      - binary_sensor.ld2410_esp32_?_smart_presence_unfiltered
+      - binary_sensor.ld2410_esp32_?_moving_target
+      - binary_sensor.ld2410_esp32_?_still_target
+      - binary_sensor.ld2410_esp32_?_presence
+      - binary_sensor.esp32_presence_bedroom_smart_presence_unfiltered
+      - binary_sensor.esp32_presence_bedroom_moving_target
+      - binary_sensor.esp32_presence_bedroom_still_target
+      - binary_sensor.esp32_presence_bedroom_presence
+      - binary_sensor.hlk*
+
+      # Bermuda Integration
+      - sensor.*_distance_to_aska*
+      - sensor.*_distance_to_back*
+      - sensor.*_distance_to_*
+      - sensor.*_area
+      - sensor.*_distance
+
+      # Browser Mod
+      - sensor.poco_f4_gt*
+      - sensor.mi_pad*
+
+logger:
+  filters:
+    homeassistant.components.switch:
+      - "Updating cozylife*"
+
+device_tracker:
+
+sonoff:
+  devices:
+    1002163cb5:
+      reporting:
+        energy: [60, 10]
+
+switch:
+  - platform: wake_on_lan
+    name: "DANIEL-PC"
+    host: 192.168.0.128
+    mac: 58:11:22:bb:50:5b
+    broadcast_address: 192.168.0.255
+    turn_off:
+      action: button.press
+      target:
+        entity_id: button.daniel_pc_power
+
+  - platform: cozylife
+    switches:
+      - ip: 192.168.0.140
+        did: 720178260050c2b42ac9
+        pid: LIsLhW
+        dmn: Smart Switch
+        dpid: [1, 2, 3, 31]
+      - ip: 192.168.0.76
+        did: 713175800050c279b38e
+        pid: LIsLhW7
+        dmn: Smart Switch
+        dpid: [1, 2, 3, 31]
+      - ip: 192.168.0.103
+        did: 713175650050c2ad955f
+        pid: LIsLhW
+        dmn: Smart Switch
+        dpid: [1, 2, 3, 31]
+template:
+  - light:
+      - name: "LG Display"
+        unique_id: light_lg_display
+        state: "{{ is_state('switch.lg_screen', 'on') }}"
+        turn_on:
+          service: switch.turn_on
+          target:
+            entity_id: switch.lg_screen
+        turn_off:
+          service: switch.turn_off
+          target:
+            entity_id: switch.lg_screen
+        level: "{{ (states('input_number.lg_tv_brightness') | int * 255 / 100) | round }}"
+        set_level:
+          service: input_number.set_value
+          target:
+            entity_id: input_number.lg_tv_brightness
+          data:
+            value: "{{ (brightness / 255 * 100) | round(0) }}"
+# Example configuration.yaml entry
+google_assistant:
+  project_id: home-assistant-integrati-88759
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: true
+  expose_by_default: false
+  secure_devices_pin: "0000"
+  exposed_domains:
+    - switch
+    - light
+    - climate
+    - fan
+    - group
+  entity_config:
+    switch.lock_2:
+      name: "Lock"
+      room: "Living Room"
+      aliases:
+        - "Door"
+        - "Front Door"
+    light.sala_lights_group:
+      name: "Sala Lights"
+      room: "Living Room"
+      aliases:
+        - "Main Lights"
+        - "Living Room Lights"
+    light.pantry_lights:
+      name: "Pantry Lights"
+      room: "Pantry"
+      aliases:
+        - "Kitchen Lights"
+    light.bathroom_lights_2:
+      name: "Bathroom Lights"
+      room: "Bathroom"
+      aliases:
+        - "Bath Lights"
+        - "CR"
+    light.bed_lights:
+      name: "Bed Lights"
+      room: "Bedroom"
+      aliases:
+        - "Room Lights"
+    light.rgb_light_strip:
+      name: "RGB Lights"
+      room: "Living Room"
+      aliases:
+        - "RGB"
+        - "Kitchen"
+        - "Kitchen Lights"
+    light.controller_rgb_df1c0d:
+      name: "Mirror Lights"
+      room: "Pantry"
+      aliases:
+        - "Mirror"
+    light.tv_backlight_3_lite:
+      name: "Back Lights"
+      room: "Living Room"
+      aliases:
+        - "BackLights"
+    switch.ceiling_fan:
+      name: "Ceiling Fan"
+      room: "Living Room"
+      aliases:
+        - "fans"
+        - "sala fans"
+    fan.sala_stand_fan:
+      name: "Stand Fan"
+      room: "Living Room"
+      aliases:
+        - "Sala Stand Fan"
+        - "Sala Fan"
+    fan.bedroom_stand_fan:
+      name: "Stand Fan"
+      room: "Bedroom"
+      aliases:
+        - "Bed Fan"
+        - "Room Fan"
+    climate.ac:
+      name: "AC"
+      room: "Bedroom"
+      aliases:
+        - "Air Con"
+        - "Air Conditioner"
+    switch.sala_motion_sensor:
+      name: "Sala Motion Sensor"
+      room: "Living Room"
+    switch.pantry_motion_sensor:
+      name: "Pantry Motion Sensor"
+      room: "Pantry"
+    switch.bathroom_motion_sensor:
+      name: "Bathroom Motion Sensor"
+      room: "Bathroom"
+    switch.wake_on_lan:
+      name: "PC"
+      room: "Living Room"
+      aliases:
+        - "Computer"
+    input_boolean.use_kitchen_lights:
+      name: "Night Mode"
+      room: "Living Room"
+media_player:
+  - platform: universal
+    name: LG TV
+    unique_id: lg_tv
+    device_class: tv
+    children:
+      - media_player.lg_webos_smart_tv
+    browse_media_entity: media_player.lg_webos_smart_tv
+    attributes:
+      source: media_player.lg_webos_smart_tv|source
+      source_list: media_player.lg_webos_smart_tv|source_list
+    commands:
+      turn_on:
+        service: wake_on_lan.send_magic_packet
+        data:
+          mac: D4:8D:26:B8:C4:AA
+          broadcast_port: 9
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.lg_webos_smart_tv
+      volume_up:
+        service: media_player.volume_up
+        data:
+          entity_id: media_player.lg_webos_smart_tv
+      volume_down:
+        service: media_player.volume_down
+        data:
+          entity_id: media_player.lg_webos_smart_tv
+      select_source:
+        action: media_player.select_source
+        data:
+          source: "{{ source }}"
+        target:
+          entity_id: media_player.lg_webos_smart_tv
+  - platform: universal
+    name: tcl65c755
+    unique_id: tcl65c755
+    device_class: tv
+    children:
+      - media_player.living_room_tv_2
+      - media_player.living_room_tv
+      - media_player.65c755_television
+    browse_media_entity: media_player.living_room_tv
+    attributes:
+      source: media_player.65c755_television|source
+      source_list: media_player.65c755_television|source_list
+    commands:
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.living_room_tv_2
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.living_room_tv_2
+      volume_up:
+        service: media_player.volume_up
+        data:
+          entity_id: media_player.living_room_tv_2
+      volume_down:
+        service: media_player.volume_down
+        data:
+          entity_id: media_player.living_room_tv_2
+      select_source:
+        action: media_player.select_source
+        data:
+          source: "{{ source }}"
+        target:
+          entity_id: media_player.65c755_television
+
+  - platform: universal
+    name: Xiaomi Air Fryer
+    unique_id: xiaomi_air_fryer_media_player
+    device_class: tv
+    attributes:
+      volume_level: sensor.air_fryer_level
+      state: sensor.air_fryer_status
+    commands:
+      turn_on:
+        action: button.press
+        target:
+          entity_id: button.air_fryer_pause_resume
+      turn_off:
+        action: button.press
+        target:
+          entity_id: button.careli_sg_593061393_maf05a_cancel_cooking_a_2_2
+      media_play:
+        action: button.press
+        target:
+          entity_id: button.air_fryer_pause_resume
+      media_pause:
+        action: button.press
+        target:
+          entity_id: button.air_fryer_pause_resume
+      media_stop:
+        action: button.press
+        target:
+          entity_id: button.careli_sg_593061393_maf05a_cancel_cooking_a_2_2
+      volume_up:
+        action: number.increment
+        data:
+          amount: 5
+        target:
+          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
+      volume_down:
+        action: number.decrement
+        data:
+          amount: 5
+        target:
+          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
+      volume_set:
+        action: number.set_value
+        data:
+          value: "{{ volume_level | float * 200 }}"
+        target:
+          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
+      media_next_track:
+        action: button.press
+        target:
+          entity_id: button.air_fryer_time_increase
+      media_previous_track:
+        action: button.press
+        target:
+          entity_id: button.air_fryer_time_decrease
+
+bluetooth:
+
+fan:
+  - platform: template
+    fans:
+      sala_stand_fan:
+        friendly_name: "Sala Stand Fan"
+        value_template: "{{ states('switch.sonoff_1002381023_1') }}"
+        percentage_template: "{{ 100 }}"
+        set_percentage: []
+        turn_on:
+          action: switch.turn_on
+          target:
+            entity_id: switch.sonoff_1002381023_1
+        turn_off:
+          action: switch.turn_off
+          target:
+            entity_id: switch.sonoff_1002381023_1
+        speed_count: 10
+
+  - platform: template
+    fans:
+      bedroom_stand_fan:
+        friendly_name: "Bedroom Stand Fan"
+        value_template: "{{ states('switch.sonoff_100238104e_1') }}"
+        percentage_template: "{{ 100 }}"
+        set_percentage: []
+        turn_on:
+          action: switch.turn_on
+          target:
+            entity_id: switch.sonoff_100238104e_1
+        turn_off:
+          action: switch.turn_off
+          target:
+            entity_id: switch.sonoff_100238104e_1
+        speed_count: 10
+# Example configuration.yaml entry
+# mqtt:
+#   - device_tracker:
+#       name: "daniel_rodriguez"
+#       state_topic: "location/daniel_rodriguez"
+#   - device_tracker:
+#       name: "athena_bezos"
+#       state_topic: "location/athena_bezos"

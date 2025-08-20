@@ -1,0 +1,1658 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "icon": "mdi:sofa",
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Living Room",
+                  "subtitle": "",
+                  "subtitle_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/history?entity_id=sensor.xiaomi_sg_753990712_cpa4_pm2_5_density_p_3_4%2Csensor.wifi_temperature_humidity_temperature"
+                  },
+                  "title_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/history?entity_id=binary_sensor.living_room_presence_sensors%2Cbinary_sensor.sala_motion_sensor_smart_presence%2Clight.sala_lights_group%2Clock.front_door_2%2Csensor.xiaomi_sg_753990712_cpa4_pm2_5_density_p_3_4"
+                  },
+                  "layout_options": {
+                    "grid_columns": 4,
+                    "grid_rows": "auto"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "template",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/energy"
+                      },
+                      "entity": "sensor.estimated_monthly_electricity_bill",
+                      "icon_color": "accent",
+                      "content": "{{states.sensor.delta_monthly_energy_reading.state | round(2)}} kWh",
+                      "icon": "mdi:lightning-bolt",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "double_tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/history?entity_id=sensor.delta_monthly_energy_reading"
+                      },
+                      "picture": ""
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "screen",
+                          "media_query": "(min-width: 0px)"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "switch.laptop",
+                        "icon_color": "accent",
+                        "icon": "mdi:laptop",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "content_info": "name",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/d5f80bfb340c88abc138faf9f07c1750"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.sala_motion_sensor",
+                          "state": "on"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.sala_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "tap_action": {
+                          "action": "more-info"
+                        },
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
+                        },
+                        "double_tap_action": {
+                          "action": "more-info"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.sala_motion_sensor",
+                          "state": "off"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.sala_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor-off",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "tap_action": {
+                          "action": "more-info"
+                        },
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
+                        },
+                        "double_tap_action": {
+                          "action": "more-info"
+                        }
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.xiaomi_sg_753990712_cpa4_pm2_5_density_p_3_4",
+                      "icon_color": "green",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "screen",
+                          "media_query": "(min-width: 768px)"
+                        },
+                        {
+                          "condition": "state",
+                          "entity": "sensor.wifi_temperature_humidity_humidity",
+                          "state_not": "unavailable"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "sensor.wifi_temperature_humidity_humidity",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
+                        },
+                        "icon_color": "light-blue"
+                      }
+                    }
+                  ],
+                  "layout_options": {
+                    "grid_columns": "full"
+                  }
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.tcl65c755",
+                  "theme": "Graphite",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "remote.living_room_tv",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "light",
+                  "entity": "light.sala_lights_group",
+                  "icon": "mdi:lightbulb-outline",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.use_kitchen_lights",
+                      "state_not": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "input_boolean.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "input_boolean.use_kitchen_lights"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.sala_motion_sensor"
+                    }
+                  },
+                  "name": "Sala",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.sala_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.sala_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.sala_lights_group', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.rgb_light_strip",
+                  "name": "Kitchen",
+                  "icon": "mdi:lightbulb-outline",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.use_kitchen_lights",
+                      "state": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "input_boolean.toggle",
+                    "target": {
+                      "entity_id": "input_boolean.use_kitchen_lights"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.sala_motion_sensor"
+                    }
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.sala_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.living_room_presence_sensors', 'on') %}\n  {% set light_on = is_state('light.rgb_light_strip', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.tv_backlight_3_lite",
+                  "use_light_color": true,
+                  "collapsible_controls": true,
+                  "name": "TV Backlight",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.tv_backlight_3_lite",
+                      "state": "on"
+                    }
+                  ],
+                  "icon": "mdi:television-ambient-light"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.ceiling_fan",
+                  "name": "Ceiling Fan",
+                  "icon": "mdi:ceiling-fan",
+                  "show_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.tv_backlight_3_lite",
+                      "state": "on"
+                    }
+                  ],
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 3
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.sala_fan_automation"
+                    }
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set automation_on = is_state('switch.sala_fan_automation', 'on') %}\n  \n  {% if automation_on %}\n    --card-mod-icon: mdi:ceiling-fan-light\n  {% else %}\n    --card-mod-icon: mdi:ceiling-fan\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.ceiling_fan",
+                  "name": "Ceiling Fan",
+                  "icon": "mdi:ceiling-fan",
+                  "show_state": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.tv_backlight_3_lite",
+                      "state_not": "on"
+                    }
+                  ],
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.sala_fan_automation"
+                    }
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set automation_on = is_state('switch.sala_fan_automation', 'on') %}\n  \n  {% if automation_on %}\n    --card-mod-icon: mdi:ceiling-fan-light\n  {% else %}\n    --card-mod-icon: mdi:ceiling-fan\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.turn_on",
+                    "target": {
+                      "entity_id": "switch.daniel_pc"
+                    },
+                    "data": {}
+                  },
+                  "entity": "switch.daniel_pc",
+                  "name": "PC",
+                  "show_state": true,
+                  "hold_action": {
+                    "action": "perform-action",
+                    "confirmation": {
+                      "text": "Turn off PC?"
+                    },
+                    "perform_action": "switch.turn_off",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.daniel_pc"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "input_button.press",
+                    "data": {},
+                    "target": {
+                      "entity_id": "input_button.remote_pc"
+                    }
+                  },
+                  "icon": "mdi:desktop-tower-monitor",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 3
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lg_tv"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "light.lg_display"
+                    }
+                  },
+                  "entity": "switch.lg_tv",
+                  "name": "LG TV",
+                  "show_state": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 3
+                  },
+                  "icon": "mdi:laptop",
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/f508d24fa76c4e08bbd26dcf03e065e3"
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set is_on = is_state('media_player.lg_webos_smart_tv', 'on')%}\n  {% set presence_on = is_state('binary_sensor.desk_motion_sensor_smart_presence', 'on') %}\n  {% set screen_on = is_state('light.lg_display', 'on') %}\n  {% set motion_sensor_on = is_state('switch.lg_tv_motion_sensor', 'on') %}\n\n\n  {% if not motion_sensor_on %}\n    --card-mod-icon: mdi:laptop-off\n  {% elif presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop-account\n  {% elif not presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop\n  {% elif not is_on %}\n    --card-mod-icon: mdi:laptop\n  {% else %}\n    --card-mod-icon: mdi:laptop\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "button",
+                  "entity": "switch.xiaomi_smart_air_purifier_4_compact_air_purifier_fan_switch",
+                  "name": "Air Purifier",
+                  "icon": "mdi:fan-off",
+                  "show_state": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state_not": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.clean_air"
+                    }
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.xiaomi_smart_air_purifier_4_compact_air_purifier_fan_switch",
+                  "name": "Air Purifier",
+                  "icon": "mdi:fan",
+                  "show_state": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.clean_air"
+                    }
+                  }
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "",
+                  "secondary": "⠀\nDoor\n{{ states(entity) | title }}\n⚡{{ states('sensor.battery_rechargable')}}%\n",
+                  "icon": "{% set state = states(entity) %}\n{% if is_state('binary_sensor.door_wrapper', 'on') %}\n  mdi:door-open\n{% elif state == 'locked' %}\n  mdi:lock\n{% elif state == 'unlocked' %}\n  mdi:lock-open-variant\n{% elif state == 'locking' %}\n  mdi:lock-clock\n{% elif state == 'unlocking' %}\n  mdi:lock-clock\n{% else %}\n  mdi:lock-alert-outline\n{% endif %}",
+                  "layout": "vertical",
+                  "fill_container": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "entity": "lock.lock_wrapper",
+                  "icon_color": "{% set state = states(entity) %}\n{% if state == 'locked' %}\n  #4CAF50\n{% elif state == 'unlocked' %}\n  #F44336\n{% elif state in ['locking', 'unlocking'] %}\n  accent\n{% else %}\n  none\n{% endif %}",
+                  "badge_icon": "",
+                  "multiline_secondary": true,
+                  "picture": "",
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/9ac9f7ba53d963f1272b369f6d9163b3"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lock_automation"
+                    }
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.lock_automation",
+                      "state": "on"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "mushroom-shape-icon {\n    --shape-color: none !important;\n    --shape-color-disabled: none !important;\n  }\n:host {\n  --mush-icon-symbol-size: 2.7em;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "",
+                  "secondary": "⠀\nDoor\n{{ states(entity) | title }}\n⚡{{ states('sensor.battery_rechargable')}}%\n",
+                  "icon": "{% set state = states(entity) %}\n{% if is_state('binary_sensor.door_wrapper', 'on') %}\n  mdi:door-open\n{% elif state == 'locked' %}\n  mdi:lock-off\n{% elif state == 'unlocked' %}\n  mdi:lock-open-variant\n{% elif state == 'locking' %}\n  mdi:lock-clock\n{% elif state == 'unlocking' %}\n  mdi:lock-clock\n{% else %}\n  mdi:lock-alert-outline\n{% endif %}",
+                  "layout": "vertical",
+                  "fill_container": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "entity": "lock.lock_wrapper",
+                  "icon_color": "{% set state = states(entity) %}\n{% if state == 'locked' %}\n  #4CAF50\n{% elif state == 'unlocked' %}\n  #F44336\n{% elif state in ['locking', 'unlocking'] %}\n  accent\n{% else %}\n  none\n{% endif %}",
+                  "badge_icon": "",
+                  "multiline_secondary": true,
+                  "picture": "",
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/9ac9f7ba53d963f1272b369f6d9163b3"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lock_automation"
+                    }
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.lock_automation",
+                      "state": "off"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "mushroom-shape-icon {\n    --shape-color: none !important;\n    --shape-color-disabled: none !important;\n  }\n:host {\n  --mush-icon-symbol-size: 2.7em;\n}\n"
+                  }
+                },
+                {
+                  "type": "button",
+                  "entity": "switch.sonoff_1002381023_1",
+                  "show_state": false,
+                  "name": "Fan",
+                  "icon": "mdi:fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.clean_air"
+                    }
+                  }
+                },
+                {
+                  "type": "button",
+                  "entity": "switch.sonoff_1002381023_1",
+                  "show_state": true,
+                  "name": "Fan",
+                  "icon": "mdi:fan-off",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state_not": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.clean_air"
+                    }
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "media_player.tcl65c755",
+                  "show_state": false,
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.tv_automation"
+                    }
+                  },
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Other Areas",
+                  "subtitle": "",
+                  "title_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/history?entity_id=binary_sensor.esp32_presence_bedroom_presence%2Clight.bed_lights%2Cfan.cozylife_2ac9%2Cbinary_sensor.contact_sensor_door%2Csensor.smart_plug_power"
+                  },
+                  "subtitle_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/energy"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "template",
+                      "content": "{{state_attr('climate.ac', 'current_temperature')}}°C",
+                      "icon_color": "primary",
+                      "icon": "mdi:thermometer",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/87ee245caef8b678f6ba2731ae4258fb"
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.smart_plug_4_sonoff_s31_power",
+                      "icon_color": "accent",
+                      "use_entity_picture": false,
+                      "name": "AC",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/energy"
+                      },
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.contact_sensor_door",
+                      "icon_color": "accent"
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.bedroom_motion_sensor",
+                          "state": "on"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.bedroom_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/2929cddfb3224fcf6e68f2cf387a002e"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.bedroom_motion_sensor",
+                          "state": "off"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.bedroom_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor-off",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/2929cddfb3224fcf6e68f2cf387a002e"
+                        }
+                      }
+                    },
+                    {
+                      "type": "template",
+                      "icon": "mdi:projector",
+                      "content": "Projector",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "notify.mobile_app_poco_f4_gt",
+                        "target": {},
+                        "data": {
+                          "data": {
+                            "intent_action": "android.intent.action.MAIN",
+                            "intent_package_name": "com.duokan.phone.remotecontroller",
+                            "intent_class_name": "com.xiaomi.mitv.phone.remotecontroller.HoriWidgetMainActivityV2",
+                            "intent_flags": 268435456
+                          },
+                          "message": "command_activity"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "double_tap_action": {
+                        "action": "more-info"
+                      },
+                      "entity": "media_player.projector"
+                    },
+                    {
+                      "type": "template",
+                      "entity": "switch.ac_automation",
+                      "content": "AC",
+                      "icon": "{{ 'mdi:toggle-switch' if is_state(entity, 'on') else 'mdi:toggle-switch-off' }}",
+                      "icon_color": "{{ 'accent' if is_state(entity, 'on') else '' }}",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "light",
+                  "entity": "light.rgb_light_strip",
+                  "name": "Kitchen",
+                  "icon": "mdi:lightbulb-outline",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "button.press",
+                    "target": {
+                      "entity_id": "button.kitchen_motion_sensor_manual_clear"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.kitchen_motion_sensor"
+                    }
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.kitchen_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.kitchen_motion_sensors', 'on') %}\n  {% set light_on = is_state('light.rgb_light_strip', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.pantry_lights",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-outline",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "",
+                    "target": {}
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.pantry_motion_sensor"
+                    }
+                  },
+                  "name": "Pantry",
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.pantry_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.pantry_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.pantry_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.ac",
+                  "show_current_as_primary": false,
+                  "features": [
+                    {
+                      "style": "icons",
+                      "type": "climate-hvac-modes",
+                      "hvac_modes": [
+                        "cool",
+                        "dry",
+                        "off"
+                      ]
+                    }
+                  ],
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 5
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.bed_lights",
+                  "icon": "mdi:lightbulb-auto",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bedroom_motion_sensor"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.bedroom_motion_sensor"
+                    }
+                  },
+                  "name": "Bedroom",
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.bedroom_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.bedroom_presence_sensors', 'on') %}\n  {% set light_on = is_state('light.bed_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bedroom_fan_automation"
+                    }
+                  },
+                  "entity": "switch.sonoff_100238104e_1",
+                  "show_state": true,
+                  "name": "Fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.bedroom_fan_automation",
+                      "state": "on"
+                    }
+                  ],
+                  "icon": "mdi:fan"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": [
+                        "switch.bedroom_fan_automation"
+                      ]
+                    }
+                  },
+                  "entity": "switch.sonoff_100238104e_1",
+                  "show_state": true,
+                  "name": "Fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.bedroom_fan_automation",
+                      "state_not": "on"
+                    }
+                  ],
+                  "icon": "mdi:fan-off"
+                },
+                {
+                  "type": "light",
+                  "entity": "light.bathroom_lights",
+                  "name": "Bathroom",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-outline",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bathroom_motion_sensor"
+                    },
+                    "data": {}
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bathroom_motion_sensor"
+                    },
+                    "data": {}
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.bathroom_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.bathroom_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.bathroom_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.water_dispenser_socket_1",
+                  "name": "Water Dispenser",
+                  "icon": "mdi:water-boiler",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                }
+              ],
+              "visibility": [
+                {
+                  "condition": "screen",
+                  "media_query": "(min-width: 768px)"
+                }
+              ]
+            },
+            {}
+          ],
+          "cards": [],
+          "max_columns": 2,
+          "title": "Sala",
+          "path": "sala",
+          "badges": [
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "climate.ac",
+              "color": "primary",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "climate.set_hvac_mode",
+                "target": {
+                  "entity_id": "climate.ac"
+                },
+                "data": {
+                  "hvac_mode": "cool"
+                }
+              },
+              "name": "Turn on AC",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "climate.ac",
+                  "state": "off"
+                }
+              ]
+            },
+            {
+              "type": "custom:mushroom-template-badge",
+              "content": "No Internet Connection",
+              "icon": "mdi:wifi-cancel",
+              "color": "red",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.internet",
+                  "state": "off"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "sensor.real_debrid_remaining_days",
+              "icon": "mdi:calendar",
+              "name": "RealDebrid",
+              "show_entity_picture": false,
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.real_debrid_remaining_days",
+                  "below": 31
+                }
+              ]
+            }
+          ],
+          "dense_section_placement": false
+        },
+        {
+          "icon": "mdi:bed",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Bedroom",
+                  "subtitle": "",
+                  "title_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/history?entity_id=binary_sensor.esp32_presence_bedroom_presence%2Clight.bed_lights%2Cfan.cozylife_2ac9%2Cbinary_sensor.contact_sensor_door%2Csensor.smart_plug_power"
+                  },
+                  "subtitle_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/energy"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "entity",
+                      "entity": "sensor.smart_plug_4_sonoff_s31_power",
+                      "icon_color": "accent",
+                      "use_entity_picture": false,
+                      "name": "AC",
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/fcd3cef781eaee6055d5f09d555fba08"
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.contact_sensor_door",
+                      "icon_color": "accent",
+                      "content_info": "state"
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.bedroom_motion_sensor",
+                          "state": "on"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.bedroom_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/2929cddfb3224fcf6e68f2cf387a002e"
+                        },
+                        "double_tap_action": {
+                          "action": "more-info"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.bedroom_motion_sensor",
+                          "state": "off"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "binary_sensor.bedroom_motion_sensor_smart_presence",
+                        "icon": "mdi:motion-sensor-off",
+                        "content_info": "state",
+                        "icon_color": "accent",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/2929cddfb3224fcf6e68f2cf387a002e"
+                        },
+                        "double_tap_action": {
+                          "action": "more-info"
+                        }
+                      }
+                    },
+                    {
+                      "type": "template",
+                      "icon": "mdi:projector",
+                      "content": "Projector",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "button.press",
+                        "target": {
+                          "entity_id": "button.launch_mi_remote"
+                        },
+                        "data": {}
+                      },
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "double_tap_action": {
+                        "action": "more-info"
+                      },
+                      "entity": "media_player.projector"
+                    }
+                  ]
+                },
+                {
+                  "type": "light",
+                  "entity": "light.bed_lights",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-auto",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bedroom_motion_sensor"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.bedroom_motion_sensor"
+                    }
+                  },
+                  "name": "Lights",
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.bedroom_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.bedroom_presence_sensors', 'on') %}\n  {% set light_on = is_state('light.bed_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bedroom_fan_automation"
+                    }
+                  },
+                  "entity": "switch.sonoff_100238104e_1",
+                  "show_state": true,
+                  "name": "Fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.bedroom_fan_automation",
+                      "state": "on"
+                    }
+                  ],
+                  "icon": "mdi:fan"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": [
+                        "switch.bedroom_fan_automation"
+                      ]
+                    }
+                  },
+                  "entity": "switch.sonoff_100238104e_1",
+                  "show_state": true,
+                  "name": "Fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.bedroom_fan_automation",
+                      "state_not": "on"
+                    }
+                  ],
+                  "icon": "mdi:fan-off"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.ac",
+                  "show_current_as_primary": false,
+                  "features": [
+                    {
+                      "style": "icons",
+                      "type": "climate-hvac-modes",
+                      "hvac_modes": [
+                        "cool",
+                        "dry",
+                        "off"
+                      ]
+                    }
+                  ],
+                  "layout_options": {
+                    "grid_columns": "full",
+                    "grid_rows": 6
+                  }
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "entity",
+                      "entity": "input_boolean.ac_light",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "content_info": "name",
+                      "name": "LED",
+                      "icon": "mdi:led-on",
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "icon_color": "primary"
+                    },
+                    {
+                      "type": "template",
+                      "content": "Speed",
+                      "picture": "",
+                      "icon": "{% if state_attr('climate.ac', 'fan_mode') == 'auto' %}\n  mdi:fan-auto\n{% elif state_attr('climate.ac', 'fan_mode') == 'low' %}\n  mdi:fan-speed-1\n{% elif state_attr('climate.ac', 'fan_mode') == 'medium' %}\n  mdi:fan-speed-2\n{% elif state_attr('climate.ac', 'fan_mode') == 'high' %}\n  mdi:fan-speed-3\n{% else %}\n  mdi:fan\n{% endif %}\n",
+                      "icon_color": "Primary",
+                      "entity": "climate.ac",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "button.press",
+                        "target": {
+                          "entity_id": "button.ac_fan_mode_toggle"
+                        }
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "switch.ac_swing_mode",
+                      "icon_color": "primary",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "type": "template",
+                      "entity": "switch.ac_automation",
+                      "content": "{{ 'Auto' if is_state(entity, 'on') else 'Manual' }}",
+                      "icon": "{{ 'mdi:toggle-switch' if is_state(entity, 'on') else 'mdi:toggle-switch-off' }}",
+                      "icon_color": "{{ 'primary' if is_state(entity, 'on') else '' }}",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    }
+                  ],
+                  "alignment": "center"
+                }
+              ]
+            }
+          ],
+          "cards": [],
+          "path": "bedroom",
+          "visible": [
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            }
+          ]
+        },
+        {
+          "path": "pantry",
+          "icon": "mdi:fridge",
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Pantry"
+                },
+                {
+                  "type": "light",
+                  "entity": "light.rgb_light_strip",
+                  "name": "Kitchen",
+                  "icon": "mdi:lightbulb-outline",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "button.press",
+                    "target": {
+                      "entity_id": "button.kitchen_motion_sensor_manual_clear"
+                    },
+                    "data": {}
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.kitchen_motion_sensor"
+                    }
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.kitchen_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.kitchen_motion_sensors', 'on') %}\n  {% set light_on = is_state('light.rgb_light_strip', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.pantry_lights",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-outline",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "button.press",
+                    "target": {
+                      "entity_id": "button.pantry_motion_sensor_manual_clear"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.pantry_motion_sensor"
+                    }
+                  },
+                  "name": "Pantry",
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.pantry_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.pantry_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.pantry_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.controller_rgb_df1c0d",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-outline",
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.pantry_motion_sensor"
+                    }
+                  },
+                  "name": "Mirror",
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.pantry_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.pantry_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.controller_rgb_df1c0d', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.bathroom_lights",
+                  "name": "Bathroom",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 4
+                  },
+                  "icon": "mdi:lightbulb-outline",
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bathroom_motion_sensor"
+                    },
+                    "data": {}
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.bathroom_motion_sensor"
+                    },
+                    "data": {}
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.bathroom_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.bathroom_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.bathroom_lights', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "binary_sensor.smart_plug_2_power_exceeds_threshold",
+                  "name": "Washing Machine",
+                  "icon": "mdi:washing-machine",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "card_mod": {
+                    "style": "ha-state-icon {\n  {% if is_state(config.entity, 'on') %}\n  animation: shake 400ms ease-in-out infinite;\n  transform-origin: 50% 58%;\n  {% endif %}\n}\n\n@keyframes shake {\n  0%, 100% { transform: translate(0, 0) rotate(0); }\n  20%  { transform: translate(0.4px, -0.4px) rotate(-4deg); }\n  40%  { transform: translate(-0.4px, 0.4px) rotate(4deg); }\n  60%  { transform: translate(0.4px, 0.4px) rotate(-4deg); }\n  80%  { transform: translate(-0.4px, -0.4px) rotate(4deg); }\n}\n"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.water_dispenser_socket_1",
+                  "icon": "mdi:water-boiler",
+                  "name": "Water Dispenser",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "max_columns": 2,
+          "cards": [],
+          "visible": [
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            }
+          ]
+        },
+        {
+          "icon": "mdi:access-point-network",
+          "cards": [],
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Devices"
+                },
+                {
+                  "type": "entities",
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.192_168_0_152",
+                      "secondary_info": "last-changed",
+                      "name": "Poco F4 GT",
+                      "icon": "mdi:wifi"
+                    },
+                    {
+                      "entity": "binary_sensor.poco_f4_gt_ble",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.redmi_watch_5_ble",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.baseus_tag_ble",
+                      "secondary_info": "last-changed",
+                      "name": "Baseus BLE Tag",
+                      "icon": "mdi:bluetooth-connect"
+                    },
+                    {
+                      "entity": "device_tracker.my_iphone",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:wifi",
+                      "name": "iPhone"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "sensor.energy_meter_reading"
+                    },
+                    {
+                      "entity": "switch.sonoff_1002380fe5_1",
+                      "icon": "mdi:laptop-account",
+                      "name": "Laptop Power"
+                    }
+                  ],
+                  "show_header_toggle": false
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Sensors"
+                },
+                {
+                  "type": "entities",
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "person.daniel_rodriguez",
+                      "secondary_info": "last-changed",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/7ea81d9c2936e2023e3b9239b0c3300b"
+                      },
+                      "double_tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "button.press",
+                        "target": {
+                          "entity_id": "button.manual_tracker_button_daniel"
+                        }
+                      }
+                    },
+                    {
+                      "entity": "person.athena_bezos",
+                      "secondary_info": "last-changed",
+                      "double_tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "button.press",
+                        "target": {
+                          "entity_id": "button.manual_tracker_button_athena"
+                        }
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "binary_sensor.sala_motion_sensor_smart_presence",
+                      "secondary_info": "last-changed",
+                      "name": "Living Room",
+                      "icon": "mdi:motion-sensor",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
+                      }
+                    },
+                    {
+                      "entity": "binary_sensor.desk_motion_sensor_smart_presence",
+                      "name": "Desk",
+                      "secondary_info": "last-updated",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/eaa9f9e29c745e33bc5686ce57fc6193"
+                      },
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "binary_sensor.kitchen_motion_sensor_smart_presence",
+                      "secondary_info": "last-changed",
+                      "name": "Kitchen",
+                      "icon": "mdi:motion-sensor",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/d2345a4e36b67ef669198ba2af9277fc"
+                      }
+                    },
+                    {
+                      "entity": "binary_sensor.pantry_motion_sensor_smart_presence",
+                      "secondary_info": "last-changed",
+                      "name": "Pantry",
+                      "icon": "mdi:motion-sensor",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/a390ad3ad69a4476ba21f7f83f787ec5"
+                      }
+                    },
+                    {
+                      "entity": "binary_sensor.bedroom_motion_sensor_smart_presence",
+                      "name": "Bedroom",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:motion-sensor",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/2929cddfb3224fcf6e68f2cf387a002e"
+                      }
+                    },
+                    {
+                      "entity": "binary_sensor.bathroom_motion_sensor_smart_presence",
+                      "secondary_info": "last-changed",
+                      "name": "Bathroom",
+                      "icon": "mdi:motion-sensor",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/5f3e524df74e94799ecdcdb125251a42"
+                      }
+                    }
+                  ],
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ],
+          "max_columns": 2,
+          "path": "settings"
+        },
+        {
+          "title": "Integration",
+          "path": "../config/integrations/dashboard",
+          "icon": "mdi:devices",
+          "visible": [
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            }
+          ]
+        },
+        {
+          "title": "NetDaemon",
+          "path": "../hassio/addon/c6a2317c_netdaemon5/logs",
+          "icon": "mdi:code-block-tags",
+          "visible": [
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            }
+          ],
+          "cards": []
+        }
+      ]
+    }
+  }
+}
