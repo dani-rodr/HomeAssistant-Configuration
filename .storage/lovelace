@@ -181,25 +181,16 @@
                   "type": "light",
                   "entity": "light.sala_lights_group",
                   "icon": "mdi:lightbulb-outline",
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "input_boolean.use_kitchen_lights",
-                      "state_not": "on"
-                    }
-                  ],
                   "hold_action": {
                     "action": "perform-action",
-                    "perform_action": "input_boolean.toggle",
-                    "data": {},
+                    "perform_action": "button.press",
                     "target": {
-                      "entity_id": "input_boolean.use_kitchen_lights"
+                      "entity_id": "button.sala_motion_sensor_manual_clear"
                     }
                   },
                   "double_tap_action": {
                     "action": "perform-action",
                     "perform_action": "switch.toggle",
-                    "data": {},
                     "target": {
                       "entity_id": "switch.sala_motion_sensor"
                     }
@@ -210,41 +201,7 @@
                     "rows": 4
                   },
                   "card_mod": {
-                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.sala_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.sala_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.sala_lights_group', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
-                  }
-                },
-                {
-                  "type": "light",
-                  "entity": "light.rgb_light_strip",
-                  "name": "Kitchen",
-                  "icon": "mdi:lightbulb-outline",
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "input_boolean.use_kitchen_lights",
-                      "state": "on"
-                    }
-                  ],
-                  "hold_action": {
-                    "action": "perform-action",
-                    "perform_action": "input_boolean.toggle",
-                    "target": {
-                      "entity_id": "input_boolean.use_kitchen_lights"
-                    }
-                  },
-                  "double_tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.sala_motion_sensor"
-                    }
-                  },
-                  "card_mod": {
-                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.sala_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.living_room_presence_sensors', 'on') %}\n  {% set light_on = is_state('light.rgb_light_strip', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
-                  },
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 4
+                    "style": ":host {\n  --card-mod-icon:\n  {% set motion_sensor_on = is_state('switch.sala_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.living_room_presence_sensors', 'on') %}\n  {% set light_on = is_state('light.sala_lights_group', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    mdi:lightbulb-on\n  {% endif %}\n}\n"
                   }
                 },
                 {
@@ -1127,6 +1084,17 @@
                   ]
                 },
                 {
+                  "type": "media-control",
+                  "entity": "media_player.projector_2",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "remote.projector",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
                   "type": "light",
                   "entity": "light.bed_lights",
                   "layout_options": {
@@ -1170,7 +1138,7 @@
                   "name": "Fan",
                   "grid_options": {
                     "columns": 6,
-                    "rows": 4
+                    "rows": 2
                   },
                   "visibility": [
                     {
@@ -1199,7 +1167,7 @@
                   "name": "Fan",
                   "grid_options": {
                     "columns": 6,
-                    "rows": 4
+                    "rows": 2
                   },
                   "visibility": [
                     {
@@ -1209,6 +1177,15 @@
                     }
                   ],
                   "icon": "mdi:fan-off"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.sonoff_1002352c40_1",
+                  "name": "Charger",
+                  "icon": "mdi:usb-port",
+                  "show_state": false
                 },
                 {
                   "type": "thermostat",

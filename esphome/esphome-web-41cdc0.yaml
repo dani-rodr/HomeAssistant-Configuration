@@ -6,6 +6,7 @@ esp32:
   board: esp32dev
   framework:
     type: esp-idf
+    version: 5.4.1
 
 # Enable logging
 logger:
