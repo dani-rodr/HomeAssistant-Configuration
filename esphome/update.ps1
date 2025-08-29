@@ -5,10 +5,31 @@
 #     .\update.ps1 -File "smart-plug-2"
 #     Compiles only the "smart-plug-2.yaml" file.
 
+#     .\update.ps1 -Generate
+#     This will render jinja files to yaml files
+
 param(
     [string]$StartFrom = "",
-    [string]$File = ""
+    [string]$File = "",
+    [switch]$Generate
 )
+
+function Render-JinjaTemplates {
+    Get-ChildItem $folder -Recurse -Filter "*.jinja" | ForEach-Object {
+        $yamlPath = Join-Path $_.DirectoryName ($_.BaseName + ".yaml")
+        Write-Host "Rendering $($_.FullName) -> $yamlPath"
+
+        $stream = [System.IO.StreamWriter]::new($yamlPath, $false, [System.Text.Encoding]::UTF8)
+        & jinja2 $_.FullName | ForEach-Object { $stream.WriteLine($_) }
+        $stream.Close()
+    }
+    Write-Host "All .jinja files rendered to .yaml."
+}
+# Example usage:
+if ($Generate) {
+    Render-JinjaTemplates
+    exit 0
+}
 
 # --- Resolve Python path explicitly ---
 $python = (Get-Command python).Source
@@ -28,7 +49,7 @@ if ($installedVersion -ne $latestVersion) {
 else {
     Write-Host "ESPHome is up to date."
 }
-
+Render-JinjaTemplates
 # --- Compile YAML files ---
 # Use the esphome folder if your YAMLs are inside it
 $yamlDir = "$PSScriptRoot"
