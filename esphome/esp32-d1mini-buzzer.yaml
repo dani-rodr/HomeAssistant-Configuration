@@ -5,9 +5,6 @@ substitutions:
 esphome:
   name: bedroom-motion-sensor
   friendly_name: Bedroom Motion Sensor
-  on_boot:
-    - lambda: |-
-        id(my_ota).set_auth_password("");
 
 esp32:
   board: esp32dev
@@ -22,7 +19,6 @@ logger:
 ota:
   - platform: esphome
     id: my_ota
-    password: "3373716c7967d461cf4bd0ce1ba42e9a"
 
 wifi:
   ssid: !secret wifi_ssid

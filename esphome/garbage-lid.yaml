@@ -3,9 +3,6 @@ esphome:
   friendly_name: Garbage Lid
   platformio_options:
     board_build.flash_mode: dio
-  on_boot:
-    - lambda: |-
-        id(my_ota).set_auth_password("");
 
 esp32:
   board: "esp32-c3-devkitm-1"
@@ -26,7 +23,6 @@ substitutions:
 api:
 ota:
   - platform: esphome
-    password: "0a1b7d42c5813ae67db275752fef028f"
     id: my_ota
 
 wifi:
