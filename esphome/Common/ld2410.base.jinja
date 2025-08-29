@@ -49,20 +49,26 @@ number:
   - platform: ld2410
     timeout:
       name: timeout
+      mode: box
     max_move_distance_gate:
       name: max move distance gate
+      mode: box
     max_still_distance_gate:
       name: max still distance gate
+      mode: box
     light_threshold:
       name: light threshold
+      mode: box
 {% for i in range(num_zones) %}
     g{{ i }}:
       move_threshold:
         name: g{{ i }} move threshold
         id: ld2410_g{{ i }}_move_threshold
+        mode: box
       still_threshold:
         name: g{{ i }} still threshold
         id: ld2410_g{{ i }}_still_threshold
+        mode: box
 {% endfor %}
   - platform: template
     name: "Still Target Delay"
@@ -71,7 +77,7 @@ number:
     max_value: 150
     step: 1
     initial_value: 0
-    mode: slider
+    mode: box
     optimistic: True
     restore_value: True
     on_value:

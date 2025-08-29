@@ -59,8 +59,8 @@ $yamlFiles = Get-ChildItem -Path $yamlDir -Filter *.yaml |
 Where-Object { $_.Name -notlike '*.base.yaml' -and $_.Name -ine 'secrets.yaml' }
 
 if ($File -ne "") {
-    # Compile a specific file only (case-insensitive, supports base name)
-    $yamlFiles = $yamlFiles | Where-Object { $_.Name -ieq $File -or $_.BaseName -ieq $File }
+    $FileName = Split-Path $File -Leaf
+    $yamlFiles = $yamlFiles | Where-Object { $_.Name -ieq $FileName -or $_.BaseName -ieq $FileName }
 }
 elseif ($StartFrom -ne "") {
     # Compile from a specific file onward

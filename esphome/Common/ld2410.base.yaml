@@ -49,84 +49,106 @@ number:
   - platform: ld2410
     timeout:
       name: timeout
+      mode: box
     max_move_distance_gate:
       name: max move distance gate
+      mode: box
     max_still_distance_gate:
       name: max still distance gate
+      mode: box
     light_threshold:
       name: light threshold
+      mode: box
 
     g0:
       move_threshold:
         name: g0 move threshold
         id: ld2410_g0_move_threshold
+        mode: box
       still_threshold:
         name: g0 still threshold
         id: ld2410_g0_still_threshold
+        mode: box
 
     g1:
       move_threshold:
         name: g1 move threshold
         id: ld2410_g1_move_threshold
+        mode: box
       still_threshold:
         name: g1 still threshold
         id: ld2410_g1_still_threshold
+        mode: box
 
     g2:
       move_threshold:
         name: g2 move threshold
         id: ld2410_g2_move_threshold
+        mode: box
       still_threshold:
         name: g2 still threshold
         id: ld2410_g2_still_threshold
+        mode: box
 
     g3:
       move_threshold:
         name: g3 move threshold
         id: ld2410_g3_move_threshold
+        mode: box
       still_threshold:
         name: g3 still threshold
         id: ld2410_g3_still_threshold
+        mode: box
 
     g4:
       move_threshold:
         name: g4 move threshold
         id: ld2410_g4_move_threshold
+        mode: box
       still_threshold:
         name: g4 still threshold
         id: ld2410_g4_still_threshold
+        mode: box
 
     g5:
       move_threshold:
         name: g5 move threshold
         id: ld2410_g5_move_threshold
+        mode: box
       still_threshold:
         name: g5 still threshold
         id: ld2410_g5_still_threshold
+        mode: box
 
     g6:
       move_threshold:
         name: g6 move threshold
         id: ld2410_g6_move_threshold
+        mode: box
       still_threshold:
         name: g6 still threshold
         id: ld2410_g6_still_threshold
+        mode: box
 
     g7:
       move_threshold:
         name: g7 move threshold
         id: ld2410_g7_move_threshold
+        mode: box
       still_threshold:
         name: g7 still threshold
         id: ld2410_g7_still_threshold
+        mode: box
 
     g8:
       move_threshold:
         name: g8 move threshold
         id: ld2410_g8_move_threshold
+        mode: box
       still_threshold:
         name: g8 still threshold
         id: ld2410_g8_still_threshold
+        mode: box
 
   - platform: template
     name: "Still Target Delay"
@@ -135,7 +157,7 @@ number:
     max_value: 150
     step: 1
     initial_value: 0
-    mode: slider
+    mode: box
     optimistic: True
     restore_value: True
     on_value:
