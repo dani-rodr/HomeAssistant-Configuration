@@ -20,12 +20,25 @@ $defaultExcludes = @('secrets.yaml', '*.base.yaml', 'CMakeConfigureLog.yaml', ".
 $Excludes += $defaultExcludes
 
 function Render-JinjaTemplates {
-    Get-ChildItem $folder -Recurse -Filter "*.jinja" | ForEach-Object {
+    param(
+        [string]$Path
+    )
+
+    Get-ChildItem $Path -Recurse -Filter "*.jinja" | ForEach-Object {
+        $jinjaFile = $_.FullName
         $yamlPath = Join-Path $_.DirectoryName ($_.BaseName + ".yaml")
-        Write-Host "Rendering $($_.FullName) -> $yamlPath"
+        Write-Host "Rendering $jinjaFile -> $yamlPath"
 
         $stream = [System.IO.StreamWriter]::new($yamlPath, $false, [System.Text.Encoding]::UTF8)
-        & jinja2 $_.FullName | ForEach-Object { $stream.WriteLine($_) }
+
+        # Use Python to render Jinja templates
+        $cmd = @(
+            $python,
+            "-c",
+            "import jinja2; t=jinja2.Template(open(r'$jinjaFile').read()); print(t.render())"
+        )
+
+        & $cmd[0] $cmd[1..($cmd.Count - 1)] | ForEach-Object { $stream.WriteLine($_) }
         $stream.Close()
     }
     Write-Host "All .jinja files rendered to .yaml."
@@ -83,10 +96,10 @@ if ($installedVersion -ne $latestVersion) {
 else {
     Write-Host "ESPHome is up to date."
 }
-Render-JinjaTemplates
 # --- Compile YAML files ---
 # Use the esphome folder if your YAMLs are inside it
 $yamlDir = "$PSScriptRoot"
+Render-JinjaTemplates $yamlDir
 Set-Location $yamlDir
 
 $yamlFiles = Get-FilteredYamlFiles -Path $yamlDir -Includes $Includes -Excludes $Excludes
@@ -109,7 +122,7 @@ if ($yamlFiles.Count -eq 0) {
     exit 0
 }
 
-Write-Host "Files to be compiled:"
+Write-Host "$($yamlFiles.Count) Files to be compiled:"
 $yamlFiles | ForEach-Object { Write-Host " - $($_)" }
 
 # Initialize a list to store results

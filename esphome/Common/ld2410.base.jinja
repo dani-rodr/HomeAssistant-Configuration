@@ -158,6 +158,7 @@ binary_sensor:
     has_target:
       name: Presence
       id: has_target
+      internal: true
       on_state:
         then:
           if:
@@ -172,6 +173,7 @@ binary_sensor:
     has_moving_target:
       name: Moving Target
       id: has_moving_target
+      internal: true
       on_press:
         then:
           if:
@@ -186,6 +188,7 @@ binary_sensor:
     has_still_target:
       name: Still Target
       id: has_still_target
+      internal: true
       on_state:
         then:
            - if:
