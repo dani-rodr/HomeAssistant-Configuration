@@ -1,7 +1,7 @@
 logger:
   baud_rate: 0 # (UART logging interferes with cse7766)
   logs:
-    sensor: ERROR # (Overide any global setting, to VERBOSE will spamming the cse7766 sensors)
+    sensor: WARN # (Overide any global setting, to VERBOSE will spamming the cse7766 sensors)
 
 uart:
   rx_pin: RX
@@ -34,7 +34,7 @@ binary_sensor:
       float threshold = id(power_on_threshold).state;  // Get the current state of the input_number
       return id(unfiltered_power) > threshold;  // Compare with the unfiltered power
 
-number: 
+number:
   - platform: template
     name: "Power on Threshold"
     id: power_on_threshold
@@ -68,7 +68,7 @@ sensor:
       filters:  # No throttling here, raw real-time values
         - throttle: 1s
         - lambda: |-
-            id(unfiltered_power) = x; 
+            id(unfiltered_power) = x;
             return x;
     energy:
       name: "Sonoff S31 Energy"
@@ -115,4 +115,3 @@ status_led:
   pin:
     number: GPIO13
     inverted: True
-    

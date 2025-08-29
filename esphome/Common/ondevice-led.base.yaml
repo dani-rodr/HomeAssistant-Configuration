@@ -1,0 +1,11 @@
+light:
+  - platform: binary
+    name: "Blue Status Light"
+    output: light_output
+    id: led_light
+    restore_mode: ALWAYS_OFF
+
+output:
+  - platform: gpio
+    pin: GPIO2
+    id: light_output

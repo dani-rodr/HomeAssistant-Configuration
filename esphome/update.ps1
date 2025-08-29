@@ -1,5 +1,13 @@
+# Examples
+#     .\update.ps1 -StartFrom "kitchen-motion-sensor.yaml"
+#     Compiles from "kitchen-motion-sensor.yaml" onward.
+
+#     .\update.ps1 -File "smart-plug-2"
+#     Compiles only the "smart-plug-2.yaml" file.
+
 param(
-    [int]$Parallel = 1
+    [string]$StartFrom = "",
+    [string]$File = ""
 )
 
 # --- Resolve Python path explicitly ---
@@ -22,48 +30,49 @@ else {
 }
 
 # --- Compile YAML files ---
-$yamlFiles = Get-ChildItem -Path $PSScriptRoot -Filter *.yaml | Where-Object { $_.Name -notlike '*.base.yaml' }
+# Use the esphome folder if your YAMLs are inside it
+$yamlDir = "$PSScriptRoot"
+Set-Location $yamlDir
+
+$yamlFiles = Get-ChildItem -Path $yamlDir -Filter *.yaml | Where-Object { $_.Name -notlike '*.base.yaml' }
+
+if ($File -ne "") {
+    # Compile a specific file only (case-insensitive, supports base name)
+    $yamlFiles = $yamlFiles | Where-Object { $_.Name -ieq $File -or $_.BaseName -ieq $File }
+}
+elseif ($StartFrom -ne "") {
+    # Compile from a specific file onward
+    $found = $false
+    $yamlFiles = $yamlFiles | Where-Object {
+        if (-not $found -and ($_.Name -ieq $StartFrom -or $_.BaseName -ieq $StartFrom)) { $found = $true }
+        $found
+    }
+}
 
 if ($yamlFiles.Count -eq 0) {
-    Write-Host "No YAML files found in $PSScriptRoot"
+    Write-Host "No YAML files found in $yamlDir"
     exit 0
 }
 
-if ($Parallel -le 1) {
-    # Sequential build (show live ESPHome logs)
-    foreach ($file in $yamlFiles) {
-        Write-Host "[$($file.Name)] compiling..."
-        & $python -m esphome run $file.FullName --no-logs  # live logs printed here
-        if ($LASTEXITCODE -eq 0) {
-            Write-Host "[$($file.Name)] ✅ done"
-        }
-        else {
-            Write-Host "[$($file.Name)] ❌ failed (exit code $LASTEXITCODE)"
-        }
-    }
-}
-else {
-    # Parallel build
-    $jobs = @()
-    foreach ($file in $yamlFiles) {
-        Write-Host "[$($file.Name)] queued..."
-        $jobs += Start-Job -ScriptBlock {
-            param($python, $path)
-            $name = [System.IO.Path]::GetFileName($path)
-            Write-Output "[$name] compiling..."
-            & $python -m esphome run $path --no-logs
-            Write-Output "[$name] ✅ done"
-        } -ArgumentList $python, $file.FullName
+Write-Host "Files to be compiled:"
+$yamlFiles | ForEach-Object { Write-Host " - $($_)" }
 
-        if ($jobs.Count -ge $Parallel) {
-            $jobs | Wait-Job | ForEach-Object { Receive-Job $_ }
-            $jobs | Remove-Job
-            $jobs = @()
-        }
-    }
+# Sequential build (show live ESPHome logs)
+foreach ($file in $yamlFiles) {
+    Write-Host "[$($file)] compiling..."
 
-    if ($jobs.Count -gt 0) {
-        $jobs | Wait-Job | ForEach-Object { Receive-Job $_ }
-        $jobs | Remove-Job
+    # Build the command as an array of strings
+    $cmd = @($python, "-m", "esphome", "run", $file, "--no-logs")
+
+    # Call the command properly
+    & $cmd[0] $cmd[1..($cmd.Count - 1)]
+
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "[$file] done"
+    }
+    else {
+        Write-Host "[$file] failed (exit code $LASTEXITCODE)"
+        Write-Host "Command that was run:"
+        Write-Host "    $($cmd -join ' ')"
     }
 }

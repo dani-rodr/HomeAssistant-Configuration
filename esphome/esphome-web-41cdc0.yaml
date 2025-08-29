@@ -8,42 +8,17 @@ esp32:
     type: esp-idf
     version: 5.4.1
 
-# Enable logging
 logger:
-  level: ERROR
+  level: WARN
   baud_rate: 0
 
-ota:
-  - platform: esphome
-    id: ota_esphome
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: True
-  reboot_timeout:
-    minutes: 1
-  manual_ip:
-    static_ip: 192.168.0.195
-    gateway: 192.168.0.1
-    subnet: 255.255.255.0
-api:
-
-light:
-  - platform: binary
-    name: "Blue Status Light"
-    output: light_output
-    id: led_light
-    restore_mode: ALWAYS_OFF
-
-output:
-  - platform: gpio
-    pin: GPIO2
-    id: light_output
+packages:
+  presence: !include Common/ld2410.base.yaml
+  connection: !include Common/connection.base.yaml
+  ondevice-led: !include Common/ondevice-led.base.yaml
 
 substitutions:
   tx_pin: RX
   rx_pin: TX
-
-packages:
-  device_base: !include ld2410.base.yaml
+  static_ip: 192.168.0.195
+  reboot_timeout: 1min

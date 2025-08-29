@@ -12,28 +12,17 @@ esp32:
     version: "recommended"
 
 logger:
-    level: INFO
+    level: WARN
+
 packages:
-  sensor1: !include ld2410.base.yaml
+  presence: !include Common/ld2410.base.yaml
+  connection: !include Common/connection.base.yaml
 
 substitutions:
   tx_pin: GPIO21
   rx_pin: GPIO20
-
-api:
-ota:
-  - platform: esphome
-    id: my_ota
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  reboot_timeout:
-    minutes: 1
-  manual_ip:
-    static_ip: 192.168.0.111
-    gateway: 192.168.0.1
-    subnet: 255.255.255.0
+  static_ip: 192.168.0.111
+  reboot_timeout: 1min
 
 servo:
   - id: servo_motor

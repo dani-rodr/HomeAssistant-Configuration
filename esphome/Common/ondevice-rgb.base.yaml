@@ -1,0 +1,8 @@
+light:
+  - platform: esp32_rmt_led_strip
+    name: Status LED
+    rgb_order: GRB
+    pin: GPIO8
+    num_leds: 1
+    chipset: ws2812
+    restore_mode: ALWAYS_OFF
