@@ -1601,9 +1601,22 @@
                         "action": "navigate",
                         "navigation_path": "/config/devices/device/5f3e524df74e94799ecdcdb125251a42"
                       }
+                    },
+                    {
+                      "entity": "button.daniel_pc_hass_agent_update_all_esp_devices",
+                      "name": "Update ESP32 Devices",
+                      "icon": "mdi:update",
+                      "secondary_info": "last-changed"
                     }
                   ],
-                  "show_header_toggle": false
+                  "show_header_toggle": false,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.daniel_pc",
+                      "state": "on"
+                    }
+                  ]
                 }
               ]
             }
