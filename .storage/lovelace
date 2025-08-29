@@ -1601,14 +1601,33 @@
                         "action": "navigate",
                         "navigation_path": "/config/devices/device/5f3e524df74e94799ecdcdb125251a42"
                       }
-                    },
-                    {
-                      "entity": "button.daniel_pc_hass_agent_update_all_esp_devices",
-                      "name": "Update ESP32 Devices",
-                      "icon": "mdi:update",
-                      "secondary_info": "last-changed"
                     }
                   ],
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "button.daniel_pc_hass_agent_update_all_esp_devices",
+                      "icon": "mdi:update",
+                      "secondary_info": "last-updated",
+                      "name": "Update All"
+                    },
+                    {
+                      "entity": "button.daniel_pc_hass_agent_update_motion_esp_devices",
+                      "secondary_info": "last-updated",
+                      "name": "Update Motion Sensors",
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "button.daniel_pc_hass_agent_update_plug_esp_devices",
+                      "secondary_info": "last-updated",
+                      "name": "Update Smart Plugs",
+                      "icon": "mdi:power-plug"
+                    }
+                  ],
+                  "title": "ESP32 Updates",
                   "show_header_toggle": false,
                   "visibility": [
                     {

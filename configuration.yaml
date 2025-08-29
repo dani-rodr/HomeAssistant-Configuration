@@ -21,29 +21,10 @@ mobile_app:
 recorder:
   exclude:
     entity_globs:
-      - sensor.*browser
-      - sensor.ceiling_fan_device_time
-
-      - sensor.ld2410_esp32*
-      - sensor.esp32_presence_bedroom*
-      - sensor.z_esp32_c6*
-      - binary_sensor.z_esp32_c6*
-      - binary_sensor.ld2410_esp32_?_smart_presence_unfiltered
-      - binary_sensor.ld2410_esp32_?_moving_target
-      - binary_sensor.ld2410_esp32_?_still_target
-      - binary_sensor.ld2410_esp32_?_presence
-      - binary_sensor.esp32_presence_bedroom_smart_presence_unfiltered
-      - binary_sensor.esp32_presence_bedroom_moving_target
-      - binary_sensor.esp32_presence_bedroom_still_target
-      - binary_sensor.esp32_presence_bedroom_presence
-      - binary_sensor.hlk*
-
-      # Bermuda Integration
-      - sensor.*_distance_to_aska*
-      - sensor.*_distance_to_back*
-      - sensor.*_distance_to_*
-      - sensor.*_area
-      - sensor.*_distance
+      - sensor.*_motion_sensor_g*_energy
+      - binary_sensor.*_motion_sensor_presence
+      - binary_sensor.*_motion_sensor_*_target
+      - binary_sensor.*_motion_sensor_smart_presence_unfiltered
 
       # Browser Mod
       - sensor.poco_f4_gt*
