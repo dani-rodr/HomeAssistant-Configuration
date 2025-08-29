@@ -34,7 +34,8 @@ else {
 $yamlDir = "$PSScriptRoot"
 Set-Location $yamlDir
 
-$yamlFiles = Get-ChildItem -Path $yamlDir -Filter *.yaml | Where-Object { $_.Name -notlike '*.base.yaml' }
+$yamlFiles = Get-ChildItem -Path $yamlDir -Filter *.yaml |
+Where-Object { $_.Name -notlike '*.base.yaml' -and $_.Name -ine 'secrets.yaml' }
 
 if ($File -ne "") {
     # Compile a specific file only (case-insensitive, supports base name)
@@ -57,6 +58,9 @@ if ($yamlFiles.Count -eq 0) {
 Write-Host "Files to be compiled:"
 $yamlFiles | ForEach-Object { Write-Host " - $($_)" }
 
+# Initialize a list to store results
+$results = @()
+
 # Sequential build (show live ESPHome logs)
 foreach ($file in $yamlFiles) {
     Write-Host "[$($file)] compiling..."
@@ -69,10 +73,25 @@ foreach ($file in $yamlFiles) {
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host "[$file] done"
+        $results += [PSCustomObject]@{
+            File   = $file
+            Status = "Success"
+        }
     }
     else {
         Write-Host "[$file] failed (exit code $LASTEXITCODE)"
         Write-Host "Command that was run:"
         Write-Host "    $($cmd -join ' ')"
+        $results += [PSCustomObject]@{
+            File   = $file
+            Status = "Failed (exit code $LASTEXITCODE)"
+        }
     }
+}
+
+# --- Summary ---
+Write-Host ""
+Write-Host "Compilation Summary:"
+$results | ForEach-Object {
+    Write-Host " - $($_.File): $($_.Status)"
 }
