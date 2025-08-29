@@ -11,8 +11,13 @@
 param(
     [string]$StartFrom = "",
     [string]$File = "",
-    [switch]$Generate
+    [switch]$Generate,
+    [string[]]$Includes = @(),
+    [string[]]$Excludes = @()
 )
+
+$defaultExcludes = @('secrets.yaml', '*.base.yaml', 'CMakeConfigureLog.yaml', ".cz.yaml")
+$Excludes += $defaultExcludes
 
 function Render-JinjaTemplates {
     Get-ChildItem $folder -Recurse -Filter "*.jinja" | ForEach-Object {
@@ -24,6 +29,35 @@ function Render-JinjaTemplates {
         $stream.Close()
     }
     Write-Host "All .jinja files rendered to .yaml."
+}
+function Get-FilteredYamlFiles {
+    param(
+        [string]$Path,
+        [string[]]$Includes = @(),
+        [string[]]$Excludes = @()
+    )
+
+    # Get all .yaml files recursively
+    $files = Get-ChildItem -Path $Path -Recurse -Filter '*.yaml' | Where-Object { -not $_.PSIsContainer }
+
+    $filteredFiles = $files | Where-Object {
+        $file = $_
+
+        # Check if the file matches any exclude pattern
+        if ($Excludes.Count -gt 0 -and ($Excludes | Where-Object { $file.FullName -like $_ -or $file.Name -like $_ }).Count -gt 0) {
+            return $false
+        }
+
+        # If includes are specified, the file must match at least one
+        if ($Includes.Count -gt 0) {
+            return ($Includes | Where-Object { $file.FullName -like $_ -or $file.Name -like $_ }).Count -gt 0
+        }
+
+        # No includes specified -> include by default
+        return $true
+    }
+
+    return $filteredFiles
 }
 # Example usage:
 if ($Generate) {
@@ -55,8 +89,7 @@ Render-JinjaTemplates
 $yamlDir = "$PSScriptRoot"
 Set-Location $yamlDir
 
-$yamlFiles = Get-ChildItem -Path $yamlDir -Filter *.yaml |
-Where-Object { $_.Name -notlike '*.base.yaml' -and $_.Name -ine 'secrets.yaml' }
+$yamlFiles = Get-FilteredYamlFiles -Path $yamlDir -Includes $Includes -Excludes $Excludes
 
 if ($File -ne "") {
     $FileName = Split-Path $File -Leaf
