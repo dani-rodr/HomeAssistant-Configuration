@@ -1,6 +1,9 @@
 esphome:
   name: sala-motion-sensor
   friendly_name: Sala Motion Sensor
+  on_boot:
+    - lambda: |-
+        id(my_ota).set_auth_password("");
 
 esp32:
   board: esp32dev
@@ -16,6 +19,7 @@ logger:
 ota:
   - platform: esphome
     password: "3373716c7967d461cf4bd0ce1ba42e9a"
+    id: my_ota
 
 esp32_ble_tracker:
   scan_parameters:
