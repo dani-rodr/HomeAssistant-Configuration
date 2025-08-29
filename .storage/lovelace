@@ -1490,6 +1490,9 @@
                       "entity": "sensor.energy_meter_reading"
                     },
                     {
+                      "entity": "sensor.system_monitor_processor_use"
+                    },
+                    {
                       "entity": "switch.sonoff_1002380fe5_1",
                       "icon": "mdi:laptop-account",
                       "name": "Laptop Power"
