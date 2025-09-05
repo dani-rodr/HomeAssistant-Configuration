@@ -262,61 +262,6 @@ media_player:
         target:
           entity_id: media_player.65c755_television
 
-  - platform: universal
-    name: Xiaomi Air Fryer
-    unique_id: xiaomi_air_fryer_media_player
-    device_class: tv
-    attributes:
-      volume_level: sensor.air_fryer_level
-      state: sensor.air_fryer_status
-    commands:
-      turn_on:
-        action: button.press
-        target:
-          entity_id: button.air_fryer_pause_resume
-      turn_off:
-        action: button.press
-        target:
-          entity_id: button.careli_sg_593061393_maf05a_cancel_cooking_a_2_2
-      media_play:
-        action: button.press
-        target:
-          entity_id: button.air_fryer_pause_resume
-      media_pause:
-        action: button.press
-        target:
-          entity_id: button.air_fryer_pause_resume
-      media_stop:
-        action: button.press
-        target:
-          entity_id: button.careli_sg_593061393_maf05a_cancel_cooking_a_2_2
-      volume_up:
-        action: number.increment
-        data:
-          amount: 5
-        target:
-          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
-      volume_down:
-        action: number.decrement
-        data:
-          amount: 5
-        target:
-          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
-      volume_set:
-        action: number.set_value
-        data:
-          value: "{{ volume_level | float * 200 }}"
-        target:
-          entity_id: number.careli_sg_593061393_maf05a_target_temperature_p_2_4
-      media_next_track:
-        action: button.press
-        target:
-          entity_id: button.air_fryer_time_increase
-      media_previous_track:
-        action: button.press
-        target:
-          entity_id: button.air_fryer_time_decrease
-
 bluetooth:
 
 fan:

@@ -146,13 +146,13 @@
                         },
                         {
                           "condition": "state",
-                          "entity": "sensor.wifi_temperature_humidity_humidity",
+                          "entity": "sensor.hygrometer_humidity",
                           "state_not": "unavailable"
                         }
                       ],
                       "chip": {
                         "type": "entity",
-                        "entity": "sensor.wifi_temperature_humidity_humidity",
+                        "entity": "sensor.hygrometer_humidity",
                         "hold_action": {
                           "action": "navigate",
                           "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
@@ -999,10 +999,10 @@
                       "icon_color": "accent",
                       "use_entity_picture": false,
                       "name": "AC",
-                      "hold_action": {
+                      "tap_action": {
                         "action": "more-info"
                       },
-                      "tap_action": {
+                      "hold_action": {
                         "action": "navigate",
                         "navigation_path": "/config/devices/device/fcd3cef781eaee6055d5f09d555fba08"
                       }
