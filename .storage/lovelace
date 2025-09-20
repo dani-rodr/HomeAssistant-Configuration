@@ -415,7 +415,7 @@
                   }
                 },
                 {
-                  "type": "custom:mushroom-template-card",
+                  "type": "custom:mushroom-legacy-template-card",
                   "primary": "",
                   "secondary": "⠀\nDoor\n{{ states(entity) | title }}\n⚡{{ states('sensor.battery_rechargable')}}%\n",
                   "icon": "{% set state = states(entity) %}\n{% if is_state('binary_sensor.door_wrapper', 'on') %}\n  mdi:door-open\n{% elif state == 'locked' %}\n  mdi:lock\n{% elif state == 'unlocked' %}\n  mdi:lock-open-variant\n{% elif state == 'locking' %}\n  mdi:lock-clock\n{% elif state == 'unlocking' %}\n  mdi:lock-clock\n{% else %}\n  mdi:lock-alert-outline\n{% endif %}",
@@ -453,7 +453,7 @@
                   }
                 },
                 {
-                  "type": "custom:mushroom-template-card",
+                  "type": "custom:mushroom-legacy-template-card",
                   "primary": "",
                   "secondary": "⠀\nDoor\n{{ states(entity) | title }}\n⚡{{ states('sensor.battery_rechargable')}}%\n",
                   "icon": "{% set state = states(entity) %}\n{% if is_state('binary_sensor.door_wrapper', 'on') %}\n  mdi:door-open\n{% elif state == 'locked' %}\n  mdi:lock-off\n{% elif state == 'unlocked' %}\n  mdi:lock-open-variant\n{% elif state == 'locking' %}\n  mdi:lock-clock\n{% elif state == 'unlocking' %}\n  mdi:lock-clock\n{% else %}\n  mdi:lock-alert-outline\n{% endif %}",
@@ -765,7 +765,8 @@
                   "layout_options": {
                     "grid_columns": 2,
                     "grid_rows": 5
-                  }
+                  },
+                  "name": "AC"
                 },
                 {
                   "type": "light",
@@ -965,6 +966,22 @@
                   "below": 31
                 }
               ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "timer.feed_the_baby",
+              "show_entity_picture": false,
+              "icon": "mdi:baby-face"
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "timer.antibiotics"
             }
           ],
           "dense_section_placement": false
@@ -1196,16 +1213,16 @@
                       "style": "icons",
                       "type": "climate-hvac-modes",
                       "hvac_modes": [
-                        "cool",
-                        "dry",
-                        "off"
+                        "off",
+                        "cool"
                       ]
                     }
                   ],
                   "layout_options": {
                     "grid_columns": "full",
                     "grid_rows": 6
-                  }
+                  },
+                  "name": "AC"
                 },
                 {
                   "type": "custom:mushroom-chips-card",
@@ -1362,7 +1379,7 @@
                   },
                   "name": "Mirror",
                   "card_mod": {
-                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.pantry_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.pantry_motion_sensor_smart_presence', 'on') %}\n  {% set light_on = is_state('light.controller_rgb_df1c0d', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
+                    "style": ":host {\n  {% set motion_sensor_on = is_state('switch.pantry_motion_sensor', 'on') %}\n  {% set presence_on = is_state('binary_sensor.bedroom_motion_sensor_mi_scale_presence', 'on') %}\n  {% set light_on = is_state('light.controller_rgb_df1c0d', 'on') %}\n  \n  {% if not motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off-outline\n  {% elif not motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif not motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-off\n  {% elif motion_sensor_on and not presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb-outline\n  {% elif motion_sensor_on and not presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on-outline\n  {% elif motion_sensor_on and presence_on and not light_on %}\n    --card-mod-icon: mdi:lightbulb\n  {% elif motion_sensor_on and presence_on and light_on %}\n    --card-mod-icon: mdi:lightbulb-on\n  {% endif %}\n}\n"
                   }
                 },
                 {
@@ -1458,7 +1475,7 @@
                   "state_color": true,
                   "entities": [
                     {
-                      "entity": "binary_sensor.192_168_0_152",
+                      "entity": "binary_sensor.poco_f4_gt_ping",
                       "secondary_info": "last-changed",
                       "name": "Poco F4 GT",
                       "icon": "mdi:wifi"
