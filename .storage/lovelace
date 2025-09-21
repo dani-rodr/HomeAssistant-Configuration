@@ -4,10 +4,130 @@
   "key": "lovelace",
   "data": {
     "config": {
+      "navbar-templates": {
+        "my-nav-bar": {
+          "type": "custom:navbar-card",
+          "routes": [
+            {
+              "url": "/dashboard-home/sala",
+              "icon": "mdi:sofa",
+              "label": "Living Room",
+              "icon_selected": "",
+              "badge": {
+                "show": false
+              }
+            },
+            {
+              "icon": "mdi:bed",
+              "label": "Bedroom",
+              "url": "/dashboard-home/bedroom"
+            },
+            {
+              "icon": "mdi:fridge",
+              "label": "Kitchen",
+              "url": "/dashboard-home/kitchen"
+            },
+            {
+              "icon": "mdi:access-point-network",
+              "label": "Devices",
+              "url": "/dashboard-home/devices"
+            },
+            {
+              "icon": "mdi:dots-horizontal",
+              "label": "More",
+              "url": "",
+              "popup": [
+                {
+                  "icon": "mdi:magnify",
+                  "label": "Search",
+                  "url": "",
+                  "tap_action": {
+                    "action": "quickbar",
+                    "mode": "entities"
+                  },
+                  "hold_action": {
+                    "action": "quickbar",
+                    "mode": "devices"
+                  }
+                },
+                {
+                  "icon": "mdi:console",
+                  "label": "Commands",
+                  "url": "",
+                  "tap_action": {
+                    "action": "quickbar",
+                    "mode": "commands"
+                  }
+                },
+                {
+                  "icon": "mdi:devices",
+                  "label": "Integrations",
+                  "url": "/config/integrations/dashboard"
+                },
+                {
+                  "icon": "mdi:code-block-tags",
+                  "label": "NetDaemon",
+                  "url": "/hassio/addon/c6a2317c_netdaemon5/logs"
+                },
+                {
+                  "icon": "mdi:hammer",
+                  "label": "Developer Tools",
+                  "url": "/developer-tools",
+                  "tap_action": null,
+                  "badge": {
+                    "show": ""
+                  }
+                },
+                {
+                  "icon": "mdi:cog",
+                  "label": "Settings",
+                  "url": "/config/dashboard"
+                }
+              ],
+              "tap_action": {
+                "action": "open-popup"
+              },
+              "hold_action": {
+                "action": "toggle-menu"
+              }
+            }
+          ],
+          "mobile": {
+            "mode": "docked",
+            "show_labels": "popup_only"
+          },
+          "desktop": {
+            "show_labels": "popup_only",
+            "show_popup_label_backgrounds": false
+          },
+          "layout": {
+            "auto_padding": {
+              "enabled": true,
+              "mobile_px": 50
+            }
+          },
+          "grid_options": {
+            "columns": "full",
+            "rows": "auto"
+          },
+          "haptic": {
+            "url": true,
+            "tap_action": true,
+            "hold_action": true,
+            "double_tap_action": true
+          },
+          "media_player": {
+            "entity": "media_player.tcl65c755",
+            "album_cover_background": true
+          }
+        }
+      },
       "views": [
         {
-          "icon": "mdi:sofa",
           "type": "sections",
+          "subview": false,
+          "title": "Home",
+          "cards": [],
           "sections": [
             {
               "type": "grid",
@@ -164,18 +284,6 @@
                   "layout_options": {
                     "grid_columns": "full"
                   }
-                },
-                {
-                  "type": "media-control",
-                  "entity": "media_player.tcl65c755",
-                  "theme": "Graphite",
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "remote.living_room_tv",
-                      "state": "on"
-                    }
-                  ]
                 },
                 {
                   "type": "light",
@@ -904,12 +1012,34 @@
                 }
               ]
             },
-            {}
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:navbar-card",
+                  "template": "my-nav-bar",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": "auto"
+                  },
+                  "mobile": {
+                    "mode": "docked",
+                    "show_labels": "popup_only"
+                  },
+                  "layout": {
+                    "auto_padding": {
+                      "enabled": true,
+                      "mobile_px": 50
+                    }
+                  },
+                  "desktop": {
+                    "show_popup_label_backgrounds": true
+                  }
+                }
+              ],
+              "column_span": 2
+            }
           ],
-          "cards": [],
-          "max_columns": 2,
-          "title": "Sala",
-          "path": "sala",
           "badges": [
             {
               "type": "entity",
@@ -984,12 +1114,19 @@
               "entity": "timer.antibiotics"
             }
           ],
-          "dense_section_placement": false
+          "dense_section_placement": true,
+          "header": {
+            "layout": "center",
+            "badges_position": "bottom",
+            "badges_wrap": "scroll"
+          },
+          "max_columns": 2,
+          "path": "sala"
         },
         {
-          "icon": "mdi:bed",
           "type": "sections",
-          "max_columns": 2,
+          "title": "Bedroom",
+          "path": "bedroom",
           "sections": [
             {
               "type": "grid",
@@ -1097,17 +1234,6 @@
                         "action": "more-info"
                       },
                       "entity": "media_player.projector"
-                    }
-                  ]
-                },
-                {
-                  "type": "media-control",
-                  "entity": "media_player.projector_2",
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "remote.projector",
-                      "state": "on"
                     }
                   ]
                 },
@@ -1277,34 +1403,57 @@
                   ],
                   "alignment": "center"
                 }
-              ]
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "template": "my-nav-bar",
+                  "grid_options": {
+                    "columns": 48,
+                    "rows": "auto"
+                  },
+                  "media_player": {
+                    "entity": "media_player.projector_2"
+                  },
+                  "layout": {
+                    "auto_padding": {
+                      "mobile_px": 30
+                    }
+                  }
+                }
+              ],
+              "column_span": 4
             }
           ],
+          "header": {
+            "layout": "responsive",
+            "badges_position": "bottom",
+            "badges_wrap": "scroll"
+          },
           "cards": [],
-          "path": "bedroom",
-          "visible": [
-            {
-              "user": "7512fc7c361e45879df43f9f0f34fc57"
-            },
-            {
-              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
-            },
-            {
-              "user": "3c226ce9b1b9406495f0ecd486642611"
-            }
-          ]
+          "subview": false,
+          "max_columns": 1
         },
         {
-          "path": "pantry",
-          "icon": "mdi:fridge",
           "type": "sections",
+          "max_columns": 1,
+          "title": "Kitchen",
+          "path": "kitchen",
           "sections": [
             {
               "type": "grid",
               "cards": [
                 {
                   "type": "custom:mushroom-title-card",
-                  "title": "Pantry"
+                  "title": "Kitchen"
                 },
                 {
                   "type": "light",
@@ -1442,26 +1591,45 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "template": "my-nav-bar",
+                  "grid_options": {
+                    "columns": 48,
+                    "rows": "auto"
+                  },
+                  "layout": {
+                    "auto_padding": {
+                      "mobile_px": 30
+                    }
+                  }
+                }
+              ],
+              "column_span": 4
             }
           ],
-          "max_columns": 2,
+          "header": {
+            "layout": "responsive",
+            "badges_position": "bottom",
+            "badges_wrap": "scroll"
+          },
           "cards": [],
-          "visible": [
-            {
-              "user": "7512fc7c361e45879df43f9f0f34fc57"
-            },
-            {
-              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
-            },
-            {
-              "user": "3c226ce9b1b9406495f0ecd486642611"
-            }
-          ]
+          "subview": false
         },
         {
-          "icon": "mdi:access-point-network",
-          "cards": [],
           "type": "sections",
+          "max_columns": 2,
+          "title": "Devices",
+          "path": "devices",
+          "icon": "",
           "sections": [
             {
               "type": "grid",
@@ -1655,31 +1823,39 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "template": "my-nav-bar",
+                  "grid_options": {
+                    "columns": 48,
+                    "rows": "auto"
+                  },
+                  "layout": {
+                    "auto_padding": {
+                      "mobile_px": 30
+                    }
+                  }
+                }
+              ],
+              "column_span": 4
             }
           ],
-          "max_columns": 2,
-          "path": "settings"
-        },
-        {
-          "title": "Integration",
-          "path": "../config/integrations/dashboard",
-          "icon": "mdi:devices",
-          "visible": [
-            {
-              "user": "7512fc7c361e45879df43f9f0f34fc57"
-            }
-          ]
-        },
-        {
-          "title": "NetDaemon",
-          "path": "../hassio/addon/c6a2317c_netdaemon5/logs",
-          "icon": "mdi:code-block-tags",
-          "visible": [
-            {
-              "user": "7512fc7c361e45879df43f9f0f34fc57"
-            }
-          ],
-          "cards": []
+          "header": {
+            "layout": "responsive",
+            "badges_position": "bottom",
+            "badges_wrap": "scroll"
+          },
+          "cards": [],
+          "subview": false,
+          "top_margin": false
         }
       ]
     }
