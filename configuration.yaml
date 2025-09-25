@@ -193,6 +193,10 @@ google_assistant:
       name: "Night Mode"
       room: "Living Room"
 media_player:
+  - platform: webrtc
+    name: Tapo Camera
+    stream: tapo
+    audio: pcma
   - platform: universal
     name: LG TV
     unique_id: lg_tv

@@ -164,80 +164,29 @@
                       "picture": ""
                     },
                     {
-                      "type": "conditional",
-                      "conditions": [
-                        {
-                          "condition": "state",
-                          "entity": "switch.sala_motion_sensor",
-                          "state": "on"
-                        }
-                      ],
-                      "chip": {
-                        "type": "entity",
-                        "entity": "binary_sensor.sala_motion_sensor_smart_presence",
-                        "icon": "mdi:motion-sensor",
-                        "content_info": "state",
-                        "icon_color": "accent",
-                        "tap_action": {
-                          "action": "more-info"
-                        },
-                        "hold_action": {
-                          "action": "navigate",
-                          "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
-                        },
-                        "double_tap_action": {
-                          "action": "more-info"
-                        }
+                      "type": "entity",
+                      "entity": "binary_sensor.sala_motion_sensor_smart_presence",
+                      "icon": "mdi:motion-sensor",
+                      "content_info": "state",
+                      "icon_color": "accent",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
+                      },
+                      "double_tap_action": {
+                        "action": "more-info"
                       }
                     },
                     {
-                      "type": "conditional",
-                      "conditions": [
-                        {
-                          "condition": "state",
-                          "entity": "switch.sala_motion_sensor",
-                          "state": "off"
-                        }
-                      ],
-                      "chip": {
-                        "type": "entity",
-                        "entity": "binary_sensor.sala_motion_sensor_smart_presence",
-                        "icon": "mdi:motion-sensor-off",
-                        "content_info": "state",
-                        "icon_color": "accent",
-                        "tap_action": {
-                          "action": "more-info"
-                        },
-                        "hold_action": {
-                          "action": "navigate",
-                          "navigation_path": "/config/devices/device/1a1e8cc8192aaafdf697cc685c5c3097"
-                        },
-                        "double_tap_action": {
-                          "action": "more-info"
-                        }
-                      }
-                    },
-                    {
-                      "type": "conditional",
-                      "conditions": [
-                        {
-                          "condition": "screen",
-                          "media_query": "(min-width: 0px)"
-                        }
-                      ],
-                      "chip": {
-                        "type": "entity",
-                        "entity": "switch.laptop",
-                        "icon_color": "accent",
-                        "icon": "mdi:laptop",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "content_info": "name",
-                        "hold_action": {
-                          "action": "navigate",
-                          "navigation_path": "/config/devices/device/d5f80bfb340c88abc138faf9f07c1750"
-                        }
+                      "type": "entity",
+                      "entity": "sensor.xiaomi_sg_753990712_cpa4_pm2_5_density_p_3_4",
+                      "icon_color": "green",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
                       }
                     },
                     {
@@ -252,7 +201,7 @@
                         "action": "navigate",
                         "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
                       },
-                      "content": "Baby Cam",
+                      "content": "Babycam",
                       "entity": "button.navigate_baby_cam",
                       "double_tap_action": {
                         "action": "perform-action",
@@ -374,87 +323,41 @@
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.turn_on",
-                    "target": {
-                      "entity_id": "switch.daniel_pc"
-                    },
-                    "data": {}
-                  },
-                  "entity": "switch.daniel_pc",
-                  "name": "PC",
+                  "entity": "switch.xiaomi_smart_air_purifier_4_compact_air_purifier_fan_switch",
+                  "name": "Air Purifier",
+                  "icon": "mdi:fan",
                   "show_state": true,
-                  "hold_action": {
-                    "action": "perform-action",
-                    "confirmation": {
-                      "text": "Turn off PC?"
-                    },
-                    "perform_action": "switch.turn_off",
-                    "data": {},
-                    "target": {
-                      "entity_id": "switch.daniel_pc"
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state": "on"
                     }
+                  ],
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
                   },
                   "double_tap_action": {
                     "action": "perform-action",
-                    "perform_action": "input_button.press",
-                    "data": {},
+                    "perform_action": "switch.toggle",
                     "target": {
-                      "entity_id": "input_button.remote_pc"
+                      "entity_id": "switch.clean_air"
                     }
                   },
-                  "icon": "mdi:desktop-tower-monitor",
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 3
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
                   }
                 },
                 {
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.lg_tv"
-                    }
-                  },
-                  "double_tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "light.toggle",
-                    "data": {},
-                    "target": {
-                      "entity_id": "light.lg_display"
-                    }
-                  },
-                  "entity": "switch.lg_tv",
-                  "name": "LG TV",
-                  "show_state": true,
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 3
-                  },
-                  "icon": "mdi:laptop",
-                  "hold_action": {
-                    "action": "navigate",
-                    "navigation_path": "/config/devices/device/f508d24fa76c4e08bbd26dcf03e065e3"
-                  },
-                  "card_mod": {
-                    "style": ":host {\n  {% set is_on = is_state('media_player.lg_webos_smart_tv', 'on')%}\n  {% set presence_on = is_state('binary_sensor.desk_motion_sensor_smart_presence', 'on') %}\n  {% set screen_on = is_state('light.lg_display', 'on') %}\n  {% set motion_sensor_on = is_state('switch.lg_tv_motion_sensor', 'on') %}\n\n\n  {% if not motion_sensor_on %}\n    --card-mod-icon: mdi:laptop-off\n  {% elif presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop-account\n  {% elif not presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop\n  {% elif not is_on %}\n    --card-mod-icon: mdi:laptop\n  {% else %}\n    --card-mod-icon: mdi:laptop\n  {% endif %}\n}\n"
-                  }
-                },
-                {
-                  "type": "button",
                   "entity": "switch.xiaomi_smart_air_purifier_4_compact_air_purifier_fan_switch",
                   "name": "Air Purifier",
                   "icon": "mdi:fan-off",
                   "show_state": true,
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 4
-                  },
                   "visibility": [
                     {
                       "condition": "state",
@@ -472,19 +375,79 @@
                     "target": {
                       "entity_id": "switch.clean_air"
                     }
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
                   }
                 },
                 {
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
-                  "entity": "switch.xiaomi_smart_air_purifier_4_compact_air_purifier_fan_switch",
-                  "name": "Air Purifier",
-                  "icon": "mdi:fan",
+                  "icon": "mdi:desktop-tower-monitor",
+                  "name": "Desktop",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "entity": "switch.wake_on_lan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "hold_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.turn_off",
+                    "confirmation": {
+                      "text": "Turn off PC?"
+                    },
+                    "target": {
+                      "entity_id": "switch.daniel_pc"
+                    }
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.sonoff_1002381023_1",
                   "show_state": true,
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 4
+                  "name": "Stand Fan",
+                  "icon": "mdi:fan-off",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.clean_air",
+                      "state_not": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.clean_air"
+                    }
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.sonoff_1002381023_1",
+                  "show_state": false,
+                  "name": "Stand Fan",
+                  "icon": "mdi:fan",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 4
                   },
                   "visibility": [
                     {
@@ -494,8 +457,7 @@
                     }
                   ],
                   "hold_action": {
-                    "action": "navigate",
-                    "navigation_path": "/config/devices/device/e2900f18d9a3615194e6a69ced396138"
+                    "action": "more-info"
                   },
                   "double_tap_action": {
                     "action": "perform-action",
@@ -582,76 +544,109 @@
                   }
                 },
                 {
-                  "type": "button",
-                  "entity": "switch.sonoff_1002381023_1",
-                  "show_state": false,
-                  "name": "Fan",
-                  "icon": "mdi:fan",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 2
+                  "type": "custom:popup-card",
+                  "title": "Desktop",
+                  "dismissable": true,
+                  "card": {
+                    "type": "horizontal-stack",
+                    "cards": [
+                      {
+                        "show_name": true,
+                        "show_icon": true,
+                        "type": "button",
+                        "tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "switch.toggle",
+                          "target": {
+                            "entity_id": "switch.lg_tv"
+                          }
+                        },
+                        "double_tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "light.toggle",
+                          "data": {},
+                          "target": {
+                            "entity_id": "light.lg_display"
+                          }
+                        },
+                        "entity": "switch.lg_tv",
+                        "name": "LG TV",
+                        "show_state": true,
+                        "layout_options": {
+                          "grid_columns": 2,
+                          "grid_rows": 3
+                        },
+                        "icon": "mdi:laptop",
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/f508d24fa76c4e08bbd26dcf03e065e3"
+                        },
+                        "card_mod": {
+                          "style": ":host {\n  {% set is_on = is_state('media_player.lg_webos_smart_tv', 'on')%}\n  {% set presence_on = is_state('binary_sensor.desk_motion_sensor_smart_presence', 'on') %}\n  {% set screen_on = is_state('light.lg_display', 'on') %}\n  {% set motion_sensor_on = is_state('switch.lg_tv_motion_sensor', 'on') %}\n\n\n  {% if not motion_sensor_on %}\n    --card-mod-icon: mdi:laptop-off\n  {% elif presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop-account\n  {% elif not presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop\n  {% elif not is_on %}\n    --card-mod-icon: mdi:laptop\n  {% else %}\n    --card-mod-icon: mdi:laptop\n  {% endif %}\n}\n"
+                        }
+                      },
+                      {
+                        "show_name": true,
+                        "show_icon": true,
+                        "type": "button",
+                        "tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "switch.turn_on",
+                          "target": {
+                            "entity_id": "switch.daniel_pc"
+                          },
+                          "data": {}
+                        },
+                        "entity": "switch.daniel_pc",
+                        "name": "PC",
+                        "show_state": true,
+                        "hold_action": {
+                          "action": "perform-action",
+                          "confirmation": {
+                            "text": "Turn off PC?"
+                          },
+                          "perform_action": "switch.turn_off",
+                          "data": {},
+                          "target": {
+                            "entity_id": "switch.daniel_pc"
+                          }
+                        },
+                        "double_tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "input_button.press",
+                          "data": {},
+                          "target": {
+                            "entity_id": "input_button.remote_pc"
+                          }
+                        },
+                        "icon": "mdi:desktop-tower-monitor"
+                      },
+                      {
+                        "show_name": true,
+                        "show_icon": true,
+                        "type": "button",
+                        "entity": "switch.laptop",
+                        "icon": "mdi:laptop",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/d5f80bfb340c88abc138faf9f07c1750"
+                        },
+                        "show_state": true
+                      }
+                    ]
                   },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "switch.clean_air",
-                      "state": "on"
-                    }
-                  ],
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.clean_air"
-                    }
-                  }
-                },
-                {
-                  "type": "button",
-                  "entity": "switch.sonoff_1002381023_1",
-                  "show_state": true,
-                  "name": "Fan",
-                  "icon": "mdi:fan-off",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 2
-                  },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "switch.clean_air",
-                      "state_not": "on"
-                    }
-                  ],
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.clean_air"
-                    }
-                  }
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "entity": "media_player.tcl65c755",
-                  "show_state": false,
-                  "double_tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.tv_automation"
-                    }
-                  },
-                  "tap_action": {
-                    "action": "toggle"
+                  "icon": "",
+                  "dismiss_action": {},
+                  "popup_card_id": "popup-desktop",
+                  "timeout_hide_progress": false,
+                  "right_button_close": true,
+                  "left_button_action": {},
+                  "right_button": "Dismiss",
+                  "target": {
+                    "entity_id": "switch.wake_on_lan"
                   }
                 }
               ],
@@ -1868,104 +1863,68 @@
               "type": "grid",
               "cards": [
                 {
-                  "camera_view": "live",
-                  "fit_mode": "fill",
-                  "type": "picture-glance",
-                  "entities": [],
-                  "camera_image": "camera.baby_camera_hd_stream",
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "title": "Dylan's Crib",
-                  "aspect_ratio": "50%"
-                },
-                {
                   "type": "markdown",
-                  "content": "{{states('input_text.baby_camera_summary')}}",
+                  "content": "{% set delta = (now() - states.input_text.baby_camera_summary.last_updated).total_seconds() %}\n{{ states('input_text.baby_camera_summary') }}{% if delta > 1 %} *(last updated {{ relative_time(states.input_text.baby_camera_summary.last_updated) }})*{% endif %}",
                   "grid_options": {
                     "columns": "full"
                   },
                   "text_only": true
                 },
                 {
-                  "type": "custom:universal-remote-card",
-                  "custom_actions": [
+                  "type": "custom:webrtc-camera",
+                  "entity": "camera.baby_camera_hd_stream",
+                  "mode": "webrtc",
+                  "media": "video,audio,microphone",
+                  "poster": "https://home-assistant.io/images/cast/splash.png",
+                  "ui": false,
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "style": ".mode {display: none}",
+                  "shortcuts": [
                     {
-                      "type": "button",
-                      "name": "left",
-                      "icon": "mdi:arrow-left-bold",
+                      "icon": "${ states['binary_sensor.baby_camera_cell_motion_detection'].state === 'on' ? 'mdi:motion-sensor':'mdi:motion-sensor-off' }"
+                    },
+                    {
+                      "icon": "${ states['binary_sensor.baby_camera_noise'].state === 'on' ? 'mdi:music-note':'mdi:music-note-off' }"
+                    }
+                  ],
+                  "ptz": {
+                    "service": "button.press",
+                    "data_left": {
+                      "entity_id": "button.baby_camera_move_left"
+                    },
+                    "data_right": {
+                      "entity_id": "button.baby_camera_move_right"
+                    },
+                    "data_up": {
+                      "entity_id": "button.baby_camera_move_up"
+                    },
+                    "data_down": {
+                      "entity_id": "button.baby_camera_move_down"
+                    }
+                  }
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "routes": [
+                    {
+                      "icon": "mdi:creation",
+                      "entity_id": "button.baby_cam_ai_summary",
                       "tap_action": {
                         "action": "perform-action",
                         "perform_action": "button.press",
                         "target": {
-                          "entity_id": "button.baby_camera_move_left"
+                          "entity_id": "button.baby_cam_ai_summary"
                         },
                         "data": {}
-                      },
-                      "hold_action": {
-                        "action": "repeat"
-                      },
-                      "entity_id": "button.baby_camera_move_left",
-                      "autofill_entity_id": false
+                      }
                     },
                     {
-                      "type": "button",
-                      "name": "right",
-                      "icon": "mdi:arrow-right-bold",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "button.press",
-                        "target": {
-                          "entity_id": "button.baby_camera_move_right"
-                        },
-                        "data": {}
-                      },
-                      "hold_action": {
-                        "action": "repeat"
-                      },
-                      "entity_id": "button.baby_camera_move_right",
-                      "autofill_entity_id": false
-                    },
-                    {
-                      "type": "button",
-                      "name": "up",
-                      "icon": "mdi:arrow-up-bold",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "button.press",
-                        "target": {
-                          "entity_id": "button.baby_camera_move_up"
-                        },
-                        "data": {}
-                      },
-                      "hold_action": {
-                        "action": "repeat"
-                      },
-                      "entity_id": "button.baby_camera_move_up",
-                      "autofill_entity_id": false
-                    },
-                    {
-                      "type": "button",
-                      "name": "down",
-                      "icon": "mdi:arrow-down-bold",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "button.press",
-                        "target": {
-                          "entity_id": "button.baby_camera_move_down"
-                        },
-                        "data": {}
-                      },
-                      "hold_action": {
-                        "action": "repeat"
-                      },
-                      "entity_id": "button.baby_camera_move_down",
-                      "autofill_entity_id": false
-                    },
-                    {
-                      "type": "button",
-                      "name": "home",
-                      "entity_id": "select.baby_camera_move_to_preset",
                       "icon": "mdi:home",
                       "tap_action": {
                         "action": "perform-action",
@@ -1979,49 +1938,25 @@
                       }
                     },
                     {
-                      "type": "button",
-                      "name": "info",
-                      "icon": "mdi:information",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
-                      }
-                    },
-                    {
-                      "type": "button",
-                      "name": "channel_magic",
-                      "icon": "mdi:auto-fix",
-                      "entity_id": "button.baby_cam_ai_summary",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "button.press",
-                        "target": {
-                          "entity_id": "button.baby_cam_ai_summary"
-                        },
-                        "data": {}
-                      }
+                      "icon": "mdi:alert-circle-outline",
+                      "label": "",
+                      "url": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
                     }
                   ],
-                  "platform": "Generic Remote",
+                  "layout": {
+                    "auto_padding": {
+                      "enabled": false
+                    }
+                  },
                   "grid_options": {
                     "columns": "full"
                   },
-                  "rows": [
-                    [
-                      "left",
-                      "right",
-                      "home",
-                      "up",
-                      "down",
-                      "channel_magic",
-                      "info"
-                    ]
-                  ],
-                  "autofill_entity_id": false
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "title"
+                  "haptic": {
+                    "url": true,
+                    "tap_action": true,
+                    "hold_action": true,
+                    "double_tap_action": true
+                  }
                 }
               ],
               "column_span": 2
@@ -2031,10 +1966,10 @@
           "badges": [
             {
               "type": "custom:mushroom-template-badge",
-              "content": "{% set finish = as_datetime(state_attr('timer.feed_the_baby','finishes_at')) | as_local %}\n{% set diff = (finish - now()).total_seconds() | int %}\n{% if diff <= 0 %}\n  Finished\n{% else %}\n  {% set h = diff // 3600 %}\n  {% set m = (diff % 3600) // 60 %}\n  {% if h > 0 %}\n    {{ h }} hour{{ 's' if h > 1 else '' }} {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% else %}\n    {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% endif %}\n{% endif %}",
-              "color": "{% if states(entity) == \"active\" %}\n  primary\n{% endif %}",
+              "content": "{% set finish = as_datetime(state_attr(entity,'finishes_at')) | as_local %}\n{% set diff = (finish - now()).total_seconds() | int %}\n{% if diff <= 0 %}\n  Finished\n{% else %}\n  {% set h = diff // 3600 %}\n  {% set m = (diff % 3600) // 60 %}\n  {% if h > 0 %}\n    {{ h }} hour{{ 's' if h > 1 else '' }} {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% else %}\n    {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% endif %}\n{% endif %}",
+              "color": "{% if states(entity) == \"active\" %}\n  primary\n{% else %}\n  red\n{% endif %}",
               "entity": "timer.feed_the_baby",
-              "label": "Next Feeding time\n{{ as_datetime(state_attr(entity, \"finishes_at\")) \n     | as_local \n     | as_timestamp \n     | timestamp_custom(\"%-I:%M %p\") }}",
+              "label": "Next Feeding Time at\n  {{ as_datetime(state_attr(entity, \"finishes_at\")) \n     | as_local \n     | as_timestamp \n     | timestamp_custom(\"%-I:%M %p\") }}",
               "icon": "mdi:baby-face",
               "hold_action": {
                 "action": "more-info"
@@ -2073,35 +2008,64 @@
                     }
                   ]
                 }
-              }
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "binary_sensor.baby_camera_cell_motion_detection",
+              },
               "visibility": [
                 {
                   "condition": "state",
-                  "entity": "binary_sensor.baby_camera_cell_motion_detection",
-                  "state": "on"
+                  "entity": "timer.feed_the_baby",
+                  "state": "active"
                 }
-              ],
-              "name": "Motion"
+              ]
             },
             {
               "type": "entity",
               "show_name": true,
               "show_state": true,
               "show_icon": true,
-              "entity": "binary_sensor.baby_camera_noise",
-              "name": "Noise",
+              "entity": "timer.feed_the_baby",
+              "hold_action": {
+                "action": "more-info"
+              },
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "timer.start",
+                "target": {
+                  "entity_id": "timer.feed_the_baby"
+                },
+                "data": {}
+              },
+              "double_tap_action": {
+                "action": "perform-action",
+                "perform_action": "browser_mod.sequence",
+                "target": {},
+                "data": {
+                  "sequence": [
+                    {
+                      "service": "timer.pause",
+                      "target": {
+                        "entity_id": "timer.feed_the_baby"
+                      }
+                    },
+                    {
+                      "service": "timer.finish",
+                      "target": {
+                        "entity_id": "timer.feed_the_baby"
+                      }
+                    },
+                    {
+                      "service": "timer.start",
+                      "target": {
+                        "entity_id": "timer.feed_the_baby"
+                      }
+                    }
+                  ]
+                }
+              },
               "visibility": [
                 {
                   "condition": "state",
-                  "entity": "binary_sensor.baby_camera_noise",
-                  "state": "on"
+                  "entity": "timer.feed_the_baby",
+                  "state_not": "active"
                 }
               ]
             }
