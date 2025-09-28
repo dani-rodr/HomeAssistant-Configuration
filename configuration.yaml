@@ -30,6 +30,8 @@ recorder:
       # Browser Mod
       - sensor.poco_f4_gt*
       - sensor.mi_pad*
+      - sensor.browser_mod*
+      - binary_sensor.browser_mod*
 
 logger:
   filters:
@@ -37,6 +39,10 @@ logger:
       - "Updating cozylife*"
 
 device_tracker:
+
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
 
 sonoff:
   devices:
