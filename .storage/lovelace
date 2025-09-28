@@ -190,26 +190,60 @@
                       }
                     },
                     {
-                      "type": "template",
-                      "icon": "mdi:cctv",
-                      "icon_color": "accent",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace/baby-cam"
-                      },
-                      "hold_action": {
-                        "action": "navigate",
-                        "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
-                      },
-                      "content": "Babycam",
-                      "entity": "button.navigate_baby_cam",
-                      "double_tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "browser_mod.navigate",
-                        "target": {},
-                        "data": {
-                          "path": "/lovelace/baby-cam"
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "user",
+                          "users": [
+                            "7512fc7c361e45879df43f9f0f34fc57",
+                            "3c226ce9b1b9406495f0ecd486642611"
+                          ]
                         }
+                      ],
+                      "chip": {
+                        "type": "template",
+                        "icon": "mdi:cctv",
+                        "icon_color": "accent",
+                        "tap_action": {
+                          "action": "navigate",
+                          "navigation_path": "/lovelace/baby-cam"
+                        },
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
+                        },
+                        "content": "Babycam",
+                        "entity": "button.navigate_baby_cam"
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "user",
+                          "users": [
+                            "b02831abf0e44536ad8fc552aede48c4"
+                          ]
+                        }
+                      ],
+                      "chip": {
+                        "type": "template",
+                        "icon": "mdi:cctv",
+                        "icon_color": "accent",
+                        "tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "switch.turn_off",
+                          "target": {
+                            "entity_id": "switch.baby_cam_navigation"
+                          },
+                          "data": {}
+                        },
+                        "hold_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
+                        },
+                        "content": "Babycam",
+                        "entity": "button.navigate_baby_cam"
                       }
                     }
                   ],
@@ -570,7 +604,7 @@
                           }
                         },
                         "entity": "switch.lg_tv",
-                        "name": "LG TV",
+                        "name": "LG C4",
                         "show_state": true,
                         "layout_options": {
                           "grid_columns": 2,
@@ -1118,7 +1152,8 @@
                   "entity_id": "timer.antibiotics"
                 },
                 "data": {}
-              }
+              },
+              "name": "Medicine"
             }
           ],
           "dense_section_placement": true,
@@ -1128,7 +1163,27 @@
             "badges_wrap": "scroll"
           },
           "max_columns": 2,
-          "path": "sala"
+          "path": "sala",
+          "visible": [
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            },
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "b02831abf0e44536ad8fc552aede48c4"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "d3b64a747e8d4b2e8337ec754879110c"
+            },
+            {
+              "user": "4deb37910a204309943396a42a591bfe"
+            }
+          ]
         },
         {
           "type": "sections",
@@ -1434,7 +1489,27 @@
           },
           "cards": [],
           "subview": false,
-          "max_columns": 1
+          "max_columns": 1,
+          "visible": [
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            },
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "b02831abf0e44536ad8fc552aede48c4"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "d3b64a747e8d4b2e8337ec754879110c"
+            },
+            {
+              "user": "4deb37910a204309943396a42a591bfe"
+            }
+          ]
         },
         {
           "type": "sections",
@@ -1612,7 +1687,27 @@
             "badges_wrap": "scroll"
           },
           "cards": [],
-          "subview": false
+          "subview": false,
+          "visible": [
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            },
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "b02831abf0e44536ad8fc552aede48c4"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "d3b64a747e8d4b2e8337ec754879110c"
+            },
+            {
+              "user": "4deb37910a204309943396a42a591bfe"
+            }
+          ]
         },
         {
           "type": "sections",
@@ -1701,7 +1796,8 @@
                         "target": {
                           "entity_id": "button.manual_tracker_button_daniel"
                         }
-                      }
+                      },
+                      "name": "Daniel"
                     },
                     {
                       "entity": "person.athena_bezos",
@@ -1712,7 +1808,8 @@
                         "target": {
                           "entity_id": "button.manual_tracker_button_athena"
                         }
-                      }
+                      },
+                      "name": "Athena"
                     },
                     {
                       "type": "divider"
@@ -1849,7 +1946,71 @@
           },
           "cards": [],
           "subview": false,
-          "top_margin": false
+          "top_margin": false,
+          "visible": [
+            {
+              "user": "3c226ce9b1b9406495f0ecd486642611"
+            },
+            {
+              "user": "7512fc7c361e45879df43f9f0f34fc57"
+            },
+            {
+              "user": "b02831abf0e44536ad8fc552aede48c4"
+            },
+            {
+              "user": "880cfaa866264c9aaa59fa1f0f0949b9"
+            },
+            {
+              "user": "d3b64a747e8d4b2e8337ec754879110c"
+            },
+            {
+              "user": "4deb37910a204309943396a42a591bfe"
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Home",
+          "path": "guest-home",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "binary_sensor.house",
+                  "icon": "mdi:cctv",
+                  "name": "Baby Camera",
+                  "show_state": false,
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/lovelace/baby-cam"
+                  },
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                }
+              ]
+            }
+          ],
+          "visible": [
+            {
+              "user": "8f55ae2a12954c4ba4de3bf6d30c63ad"
+            }
+          ],
+          "cards": [],
+          "badges": []
         },
         {
           "type": "sections",
@@ -1874,7 +2035,7 @@
                   "type": "custom:webrtc-camera",
                   "entity": "camera.baby_camera_hd_stream",
                   "mode": "webrtc",
-                  "media": "video,audio,microphone",
+                  "media": "video,audio",
                   "poster": "https://home-assistant.io/images/cast/splash.png",
                   "ui": false,
                   "grid_options": {
@@ -1956,7 +2117,24 @@
                     "tap_action": true,
                     "hold_action": true,
                     "double_tap_action": true
-                  }
+                  },
+                  "mobile": {
+                    "mode": "floating"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "user",
+                      "users": [
+                        "8f55ae2a12954c4ba4de3bf6d30c63ad",
+                        "3c226ce9b1b9406495f0ecd486642611",
+                        "7512fc7c361e45879df43f9f0f34fc57",
+                        "b02831abf0e44536ad8fc552aede48c4",
+                        "880cfaa866264c9aaa59fa1f0f0949b9",
+                        "d3b64a747e8d4b2e8337ec754879110c",
+                        "4deb37910a204309943396a42a591bfe"
+                      ]
+                    }
+                  ]
                 }
               ],
               "column_span": 2
@@ -1964,6 +2142,27 @@
           ],
           "cards": [],
           "badges": [
+            {
+              "type": "custom:mushroom-template-badge",
+              "entity": "switch.baby_camera_microphone_mute",
+              "content": "{% if is_state('switch.baby_camera_microphone_mute', 'on') %}\n  Muted\n{% else %}\n  Active\n{% endif %}",
+              "color": "{% if is_state('switch.baby_camera_microphone_mute', 'on') %}\n  none\n{% else %}\n  primary\n{% endif %}",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "icon": "{% if is_state('switch.baby_camera_microphone_mute', 'on') %}\n  mdi:microphone-off\n{% else %}\n  mdi:microphone\n{% endif %}",
+              "visibility": [
+                {
+                  "condition": "user",
+                  "users": [
+                    "3c226ce9b1b9406495f0ecd486642611",
+                    "7512fc7c361e45879df43f9f0f34fc57",
+                    "b02831abf0e44536ad8fc552aede48c4"
+                  ]
+                }
+              ],
+              "label": "Microphone"
+            },
             {
               "type": "custom:mushroom-template-badge",
               "content": "{% set finish = as_datetime(state_attr(entity,'finishes_at')) | as_local %}\n{% set diff = (finish - now()).total_seconds() | int %}\n{% if diff <= 0 %}\n  Finished\n{% else %}\n  {% set h = diff // 3600 %}\n  {% set m = (diff % 3600) // 60 %}\n  {% if h > 0 %}\n    {{ h }} hour{{ 's' if h > 1 else '' }} {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% else %}\n    {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% endif %}\n{% endif %}",
@@ -2066,6 +2265,66 @@
                   "condition": "state",
                   "entity": "timer.feed_the_baby",
                   "state_not": "active"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": false,
+              "show_icon": true,
+              "entity": "binary_sensor.browser_daniel_online",
+              "state_content": "name",
+              "name": "Daniel",
+              "icon": "mdi:account-eye",
+              "color": "green",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.browser_daniel_online",
+                  "state": "on"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": false,
+              "show_icon": true,
+              "entity": "binary_sensor.browser_athena_online",
+              "state_content": "name",
+              "name": "Athena",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-eye",
+              "color": "green",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.browser_athena_online",
+                  "state": "on"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": false,
+              "show_icon": true,
+              "entity": "binary_sensor.browser_guest_online",
+              "state_content": "name",
+              "name": "Guest",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-eye",
+              "color": "green",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.browser_guest_online",
+                  "state": "on"
                 }
               ]
             }
