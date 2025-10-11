@@ -43,12 +43,12 @@
               "url": "",
               "popup": [
                 {
-                  "icon": "mdi:console",
-                  "label": "Commands",
+                  "icon": "mdi:magnify",
+                  "label": "Search",
                   "url": "",
                   "tap_action": {
                     "action": "quickbar",
-                    "mode": "commands"
+                    "mode": "entities"
                   }
                 },
                 {
@@ -110,10 +110,19 @@
           },
           "media_player": {
             "entity": "media_player.tcl65c755",
-            "album_cover_background": true,
-            "show": true
+            "album_cover_background": true
           }
         }
+      },
+      "kiosk_mode": {
+        "entity_settings": [
+          {
+            "entity": {
+              "input_boolean.hide_header": "on"
+            },
+            "hide_header": true
+          }
+        ]
       },
       "views": [
         {
@@ -210,10 +219,16 @@
                           "navigation_path": "/lovelace/baby-cam"
                         },
                         "hold_action": {
-                          "action": "navigate",
-                          "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
+                          "action": "perform-action",
+                          "perform_action": "browser_mod.more_info",
+                          "target": {},
+                          "data": {
+                            "large": false,
+                            "ignore_popup_card": false,
+                            "entity": "timer.feed_the_baby"
+                          }
                         },
-                        "content": "Babycam",
+                        "content": "Crib",
                         "entity": "button.navigate_baby_cam"
                       }
                     },
@@ -240,10 +255,17 @@
                           "data": {}
                         },
                         "hold_action": {
-                          "action": "navigate",
-                          "navigation_path": "/config/devices/device/02764c08f4a9b0e4545d7591cab7bad4"
+                          "action": "perform-action",
+                          "perform_action": "browser_mod.more_info",
+                          "target": {},
+                          "data": {
+                            "large": false,
+                            "ignore_popup_card": false,
+                            "view": "info",
+                            "entity": "timer.feed_the_baby"
+                          }
                         },
-                        "content": "Babycam",
+                        "content": "Crib",
                         "entity": "button.navigate_baby_cam"
                       }
                     }
@@ -440,6 +462,61 @@
                     "target": {
                       "entity_id": "switch.daniel_pc"
                     }
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.lovelace_display_laptop",
+                      "state": "off"
+                    }
+                  ],
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lovelace_display_laptop"
+                    }
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lg_tv"
+                    }
+                  },
+                  "double_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "switch.toggle",
+                    "target": {
+                      "entity_id": "switch.lovelace_display_laptop"
+                    }
+                  },
+                  "entity": "switch.lg_tv",
+                  "name": "LG C4",
+                  "show_state": true,
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 3
+                  },
+                  "icon": "mdi:laptop",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.lovelace_display_laptop",
+                      "state": "on"
+                    }
+                  ],
+                  "hold_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/devices/device/f508d24fa76c4e08bbd26dcf03e065e3"
+                  },
+                  "card_mod": {
+                    "style": ":host {\n  {% set is_on = is_state('media_player.lg_webos_smart_tv', 'on')%}\n  {% set presence_on = is_state('binary_sensor.desk_motion_sensor_smart_presence', 'on') %}\n  {% set screen_on = is_state('light.lg_display', 'on') %}\n  {% set motion_sensor_on = is_state('switch.lg_tv_motion_sensor', 'on') %}\n\n\n  {% if not motion_sensor_on %}\n    --card-mod-icon: mdi:laptop-off\n  {% elif presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop-account\n  {% elif not presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop\n  {% elif not is_on %}\n    --card-mod-icon: mdi:laptop\n  {% else %}\n    --card-mod-icon: mdi:laptop\n  {% endif %}\n}\n"
                   }
                 },
                 {
@@ -1109,52 +1186,6 @@
                   "below": 31
                 }
               ]
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "timer.antibiotics",
-              "double_tap_action": {
-                "action": "perform-action",
-                "perform_action": "browser_mod.sequence",
-                "target": {},
-                "data": {
-                  "sequence": [
-                    {
-                      "service": "timer.pause",
-                      "target": {
-                        "entity_id": "timer.antibiotics"
-                      }
-                    },
-                    {
-                      "service": "timer.finish",
-                      "target": {
-                        "entity_id": "timer.antibiotics"
-                      }
-                    },
-                    {
-                      "service": "timer.start",
-                      "target": {
-                        "entity_id": "timer.antibiotics"
-                      }
-                    }
-                  ]
-                }
-              },
-              "hold_action": {
-                "action": "more-info"
-              },
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "timer.start",
-                "target": {
-                  "entity_id": "timer.antibiotics"
-                },
-                "data": {}
-              },
-              "name": "Medicine"
             }
           ],
           "dense_section_placement": true,
@@ -1194,6 +1225,10 @@
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Bedroom"
+                },
                 {
                   "type": "custom:mushroom-chips-card",
                   "chips": [
@@ -1405,7 +1440,7 @@
                   "chips": [
                     {
                       "type": "entity",
-                      "entity": "input_boolean.ac_light",
+                      "entity": "switch.ac_lights",
                       "tap_action": {
                         "action": "toggle"
                       },
@@ -1415,14 +1450,14 @@
                       "hold_action": {
                         "action": "more-info"
                       },
-                      "icon_color": "primary"
+                      "icon_color": "accent"
                     },
                     {
                       "type": "template",
                       "content": "Speed",
                       "picture": "",
                       "icon": "{% if state_attr('climate.ac', 'fan_mode') == 'auto' %}\n  mdi:fan-auto\n{% elif state_attr('climate.ac', 'fan_mode') == 'low' %}\n  mdi:fan-speed-1\n{% elif state_attr('climate.ac', 'fan_mode') == 'medium' %}\n  mdi:fan-speed-2\n{% elif state_attr('climate.ac', 'fan_mode') == 'high' %}\n  mdi:fan-speed-3\n{% else %}\n  mdi:fan\n{% endif %}\n",
-                      "icon_color": "Primary",
+                      "icon_color": "Accent",
                       "entity": "climate.ac",
                       "tap_action": {
                         "action": "perform-action",
@@ -1435,7 +1470,7 @@
                     {
                       "type": "entity",
                       "entity": "switch.ac_swing_mode",
-                      "icon_color": "primary",
+                      "icon_color": "accent",
                       "tap_action": {
                         "action": "toggle"
                       }
@@ -1445,7 +1480,7 @@
                       "entity": "switch.ac_automation",
                       "content": "{{ 'Auto' if is_state(entity, 'on') else 'Manual' }}",
                       "icon": "{{ 'mdi:toggle-switch' if is_state(entity, 'on') else 'mdi:toggle-switch-off' }}",
-                      "icon_color": "{{ 'primary' if is_state(entity, 'on') else '' }}",
+                      "icon_color": "{{ 'accent' if is_state(entity, 'on') else '' }}",
                       "tap_action": {
                         "action": "toggle"
                       }
@@ -1521,6 +1556,10 @@
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "Kitchen"
+                },
                 {
                   "type": "light",
                   "entity": "light.rgb_light_strip",
@@ -2034,7 +2073,7 @@
                 },
                 {
                   "type": "custom:webrtc-camera",
-                  "url": "tapo",
+                  "url": "tapo_fhd",
                   "mode": "webrtc",
                   "media": "video,audio,microphone",
                   "poster": "https://home-assistant.io/images/cast/splash.png",
@@ -2072,12 +2111,17 @@
                       "condition": "state",
                       "entity": "switch.baby_camera_speaker",
                       "state": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.baby_cam_hd",
+                      "state": "on"
                     }
                   ]
                 },
                 {
                   "type": "custom:webrtc-camera",
-                  "url": "tapo",
+                  "url": "tapo_fhd",
                   "mode": "webrtc",
                   "media": "video,audio",
                   "poster": "https://home-assistant.io/images/cast/splash.png",
@@ -2114,6 +2158,107 @@
                     {
                       "condition": "state",
                       "entity": "switch.baby_camera_speaker",
+                      "state": "off"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.baby_cam_hd",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:webrtc-camera",
+                  "url": "tapo_hd",
+                  "mode": "webrtc",
+                  "media": "video,audio,microphone",
+                  "poster": "https://home-assistant.io/images/cast/splash.png",
+                  "ui": true,
+                  "muted": false,
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "style": ".mode {display: none}",
+                  "shortcuts": [
+                    {
+                      "icon": "${ states['binary_sensor.baby_camera_cell_motion_detection'].state === 'on' ? 'mdi:motion-sensor':'mdi:motion-sensor-off' }"
+                    },
+                    {
+                      "icon": "${ states['binary_sensor.baby_camera_noise'].state === 'on' ? 'mdi:music-note':'mdi:music-note-off' }"
+                    }
+                  ],
+                  "ptz": {
+                    "service": "button.press",
+                    "data_left": {
+                      "entity_id": "button.baby_camera_move_left"
+                    },
+                    "data_right": {
+                      "entity_id": "button.baby_camera_move_right"
+                    },
+                    "data_up": {
+                      "entity_id": "button.baby_camera_move_up"
+                    },
+                    "data_down": {
+                      "entity_id": "button.baby_camera_move_down"
+                    }
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.baby_camera_speaker",
+                      "state": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.baby_cam_hd",
+                      "state": "off"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:webrtc-camera",
+                  "url": "tapo_hd",
+                  "mode": "webrtc",
+                  "media": "video,audio",
+                  "poster": "https://home-assistant.io/images/cast/splash.png",
+                  "ui": true,
+                  "muted": false,
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "style": ".mode {display: none}",
+                  "shortcuts": [
+                    {
+                      "icon": "${ states['binary_sensor.baby_camera_cell_motion_detection'].state === 'on' ? 'mdi:motion-sensor':'mdi:motion-sensor-off' }"
+                    },
+                    {
+                      "icon": "${ states['binary_sensor.baby_camera_noise'].state === 'on' ? 'mdi:music-note':'mdi:music-note-off' }"
+                    }
+                  ],
+                  "ptz": {
+                    "service": "button.press",
+                    "data_left": {
+                      "entity_id": "button.baby_camera_move_left"
+                    },
+                    "data_right": {
+                      "entity_id": "button.baby_camera_move_right"
+                    },
+                    "data_up": {
+                      "entity_id": "button.baby_camera_move_up"
+                    },
+                    "data_down": {
+                      "entity_id": "button.baby_camera_move_down"
+                    }
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.baby_camera_speaker",
+                      "state": "off"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.baby_cam_hd",
                       "state": "off"
                     }
                   ]
@@ -2179,6 +2324,16 @@
                         },
                         "data": {
                           "option": "Default"
+                        }
+                      }
+                    },
+                    {
+                      "icon": "[[[return states['input_boolean.baby_cam_hd'].state === 'on' \n      ? 'mdi:high-definition-box' \n      : 'mdi:standard-definition';]]]",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "input_boolean.toggle",
+                        "target": {
+                          "entity_id": "input_boolean.baby_cam_hd"
                         }
                       }
                     },
@@ -2279,111 +2434,6 @@
                 },
                 "data": {}
               }
-            },
-            {
-              "type": "custom:mushroom-template-badge",
-              "content": "{% set finish = as_datetime(state_attr(entity,'finishes_at')) | as_local %}\n{% set diff = (finish - now()).total_seconds() | int %}\n{% if diff <= 0 %}\n  Finished\n{% else %}\n  {% set h = diff // 3600 %}\n  {% set m = (diff % 3600) // 60 %}\n  {% if h > 0 %}\n    {{ h }} hour{{ 's' if h > 1 else '' }} {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% else %}\n    {{ m }} minute{{ 's' if m > 1 else '' }} left\n  {% endif %}\n{% endif %}",
-              "color": "{% if states(entity) == \"active\" %}\n  primary\n{% else %}\n  red\n{% endif %}",
-              "entity": "timer.feed_the_baby",
-              "label": "Next Feeding Time at\n  {{ as_datetime(state_attr(entity, \"finishes_at\")) \n     | as_local \n     | as_timestamp \n     | timestamp_custom(\"%-I:%M %p\") }}",
-              "icon": "mdi:baby-face",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "timer.start",
-                "target": {
-                  "entity_id": "timer.feed_the_baby"
-                },
-                "data": {}
-              },
-              "double_tap_action": {
-                "action": "perform-action",
-                "perform_action": "browser_mod.sequence",
-                "target": {},
-                "data": {
-                  "sequence": [
-                    {
-                      "service": "timer.pause",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    },
-                    {
-                      "service": "timer.finish",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    },
-                    {
-                      "service": "timer.start",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    }
-                  ]
-                }
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "timer.feed_the_baby",
-                  "state": "active"
-                }
-              ]
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "timer.feed_the_baby",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "timer.start",
-                "target": {
-                  "entity_id": "timer.feed_the_baby"
-                },
-                "data": {}
-              },
-              "double_tap_action": {
-                "action": "perform-action",
-                "perform_action": "browser_mod.sequence",
-                "target": {},
-                "data": {
-                  "sequence": [
-                    {
-                      "service": "timer.pause",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    },
-                    {
-                      "service": "timer.finish",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    },
-                    {
-                      "service": "timer.start",
-                      "target": {
-                        "entity_id": "timer.feed_the_baby"
-                      }
-                    }
-                  ]
-                }
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "timer.feed_the_baby",
-                  "state_not": "active"
-                }
-              ]
             },
             {
               "type": "entity",
