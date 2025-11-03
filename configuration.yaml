@@ -40,10 +40,6 @@ logger:
 
 device_tracker:
 
-spotcast:
-  sp_dc: !secret sp_dc
-  sp_key: !secret sp_key
-
 sonoff:
   devices:
     1002163cb5:
@@ -112,6 +108,14 @@ google_assistant:
     - fan
     - group
   entity_config:
+    switch.play_music:
+      name: "Baby Music"
+      room: "Living Room"
+      aliases:
+        - "Lullaby"
+        - "Crib"
+        - "Crib Song"
+        - "Baby Song"
     switch.lock_2:
       name: "Lock"
       room: "Living Room"
@@ -124,29 +128,34 @@ google_assistant:
       aliases:
         - "Main Lights"
         - "Living Room Lights"
+        - "Sala"
+        - "Living Room"
     light.pantry_lights:
       name: "Pantry Lights"
       room: "Pantry"
       aliases:
+        - "Pantry Lights"
+        - "Pantry"
+    light.rgb_light_strip:
+      name: "Kitchen Lights"
+      room: "Kitchen"
+      aliases:
         - "Kitchen Lights"
+        - "Kitchen"
     light.bathroom_lights_2:
       name: "Bathroom Lights"
       room: "Bathroom"
       aliases:
         - "Bath Lights"
         - "CR"
+        - "Bathroom"
     light.bed_lights:
       name: "Bed Lights"
       room: "Bedroom"
       aliases:
         - "Room Lights"
-    light.rgb_light_strip:
-      name: "RGB Lights"
-      room: "Living Room"
-      aliases:
-        - "RGB"
-        - "Kitchen"
-        - "Kitchen Lights"
+        - "Bedroom"
+        - "Bed"
     light.controller_rgb_df1c0d:
       name: "Mirror Lights"
       room: "Pantry"
@@ -181,27 +190,15 @@ google_assistant:
       aliases:
         - "Air Con"
         - "Air Conditioner"
-    switch.sala_motion_sensor:
-      name: "Sala Motion Sensor"
-      room: "Living Room"
-    switch.pantry_motion_sensor:
-      name: "Pantry Motion Sensor"
-      room: "Pantry"
-    switch.bathroom_motion_sensor:
-      name: "Bathroom Motion Sensor"
-      room: "Bathroom"
     switch.wake_on_lan:
       name: "PC"
       room: "Living Room"
       aliases:
         - "Computer"
-    input_boolean.use_kitchen_lights:
-      name: "Night Mode"
-      room: "Living Room"
 media_player:
   - platform: webrtc
     name: Tapo Camera
-    stream: tapo
+    stream: tapo_hd
     audio: pcma
   - platform: universal
     name: LG TV

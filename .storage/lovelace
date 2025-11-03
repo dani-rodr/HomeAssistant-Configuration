@@ -89,8 +89,7 @@
             "show_labels": "popup_only"
           },
           "desktop": {
-            "show_labels": "popup_only",
-            "show_popup_label_backgrounds": false
+            "show_labels": "popup_only"
           },
           "layout": {
             "auto_padding": {
@@ -115,14 +114,7 @@
         }
       },
       "kiosk_mode": {
-        "entity_settings": [
-          {
-            "entity": {
-              "input_boolean.hide_header": "on"
-            },
-            "hide_header": true
-          }
-        ]
+        "hide_header": "[[[ is_state(\"input_boolean.hide_header\", \"on\") ]]]"
       },
       "views": [
         {
@@ -218,18 +210,8 @@
                           "action": "navigate",
                           "navigation_path": "/lovelace/baby-cam"
                         },
-                        "hold_action": {
-                          "action": "perform-action",
-                          "perform_action": "browser_mod.more_info",
-                          "target": {},
-                          "data": {
-                            "large": false,
-                            "ignore_popup_card": false,
-                            "entity": "timer.feed_the_baby"
-                          }
-                        },
                         "content": "Crib",
-                        "entity": "button.navigate_baby_cam"
+                        "entity": "switch.baby_cam_navigation"
                       }
                     },
                     {
@@ -254,19 +236,8 @@
                           },
                           "data": {}
                         },
-                        "hold_action": {
-                          "action": "perform-action",
-                          "perform_action": "browser_mod.more_info",
-                          "target": {},
-                          "data": {
-                            "large": false,
-                            "ignore_popup_card": false,
-                            "view": "info",
-                            "entity": "timer.feed_the_baby"
-                          }
-                        },
                         "content": "Crib",
-                        "entity": "button.navigate_baby_cam"
+                        "entity": "switch.baby_cam_navigation"
                       }
                     }
                   ],
@@ -1114,7 +1085,8 @@
                   },
                   "mobile": {
                     "mode": "docked",
-                    "show_labels": "popup_only"
+                    "show_labels": "popup_only",
+                    "show_popup_label_backgrounds": false
                   },
                   "layout": {
                     "auto_padding": {
@@ -1124,6 +1096,9 @@
                   },
                   "desktop": {
                     "show_popup_label_backgrounds": true
+                  },
+                  "media_player": {
+                    "album_cover_background": false
                   }
                 }
               ],
@@ -1694,6 +1669,31 @@
                     "columns": 6,
                     "rows": 3
                   }
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "icon": "mdi:pot-steam",
+                  "features_position": "bottom",
+                  "multiline_secondary": false,
+                  "primary": "Induction",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "button.press",
+                    "target": {
+                      "entity_id": "button.induction_cooker_power"
+                    }
+                  },
+                  "color": "{{ 'primary' if (\n  is_state('binary_sensor.smart_plug_3_power_exceeds_threshold', 'on') and\n  (as_timestamp(now()) - as_timestamp(states.binary_sensor.smart_plug_3_power_exceeds_threshold.last_changed)) < 10\n) else '' }}",
+                  "entity": "sensor.smart_plug_3_sonoff_s31_power",
+                  "vertical": true
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "switch.rice_cooker_socket_1",
+                  "name": "Rice Cooker",
+                  "icon": "mdi:rice"
                 }
               ]
             },
@@ -2315,6 +2315,18 @@
                       }
                     },
                     {
+                      "icon": "[[[return states['switch.play_music'].state === 'on' \n      ? 'mdi:music' \n      : 'mdi:music-off';]]]",
+                      "label": "",
+                      "url": "",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "switch.toggle",
+                        "target": {
+                          "entity_id": "switch.play_music"
+                        }
+                      }
+                    },
+                    {
                       "icon": "mdi:home",
                       "tap_action": {
                         "action": "perform-action",
@@ -2393,7 +2405,7 @@
               "tap_action": {
                 "action": "toggle"
               },
-              "icon": "{% if is_state('switch.baby_camera_microphone_mute', 'on') %}\n  mdi:microphone-off\n{% else %}\n  mdi:microphone\n{% endif %}",
+              "icon": "{% if is_state('switch.baby_camera_microphone_mute', 'on') %}\n  mdi:volume-off\n{% else %}\n  mdi:volume-high\n{% endif %}",
               "visibility": [
                 {
                   "condition": "user",
@@ -2404,14 +2416,14 @@
                   ]
                 }
               ],
-              "label": "Microphone"
+              "label": "Speaker"
             },
             {
               "type": "custom:mushroom-template-badge",
               "entity": "number.baby_camera_speaker_volume",
               "content": "{% if is_state('switch.baby_camera_speaker', 'off') %}\n  Muted\n{% else %}\n  {{states('number.baby_camera_speaker_volume') | int}}%\n{% endif %}\n\n",
               "color": "{% if is_state('switch.baby_camera_speaker', 'on') %}\n  primary\n{% else %}\n  none\n{% endif %}",
-              "icon": "{% set vol = states('number.baby_camera_speaker_volume') | int(0) %}\n{% if vol == 0 %}\n  mdi:volume-off\n{% elif vol < 30 %}\n  mdi:volume-low\n{% elif vol < 70 %}\n  mdi:volume-medium\n{% else %}\n  mdi:volume-high\n{% endif %}",
+              "icon": "{% set vol = states('number.baby_camera_speaker_volume') | int(0) %}\n{% if vol == 0 %}\n  mdi:microphone-off\n{% else %}\n  mdi:microphone\n{% endif %}",
               "visibility": [
                 {
                   "condition": "user",
@@ -2422,7 +2434,6 @@
                   ]
                 }
               ],
-              "label": "Speaker",
               "tap_action": {
                 "action": "more-info"
               },
@@ -2433,6 +2444,27 @@
                   "entity_id": "switch.baby_camera_speaker"
                 },
                 "data": {}
+              },
+              "label": "Microphone"
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "switch.baby_camera_privacy",
+              "visibility": [
+                {
+                  "condition": "user",
+                  "users": [
+                    "3c226ce9b1b9406495f0ecd486642611",
+                    "7512fc7c361e45879df43f9f0f34fc57"
+                  ]
+                }
+              ],
+              "name": "Privacy",
+              "tap_action": {
+                "action": "toggle"
               }
             },
             {
