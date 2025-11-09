@@ -730,6 +730,10 @@
                   "right_button": "Dismiss",
                   "target": {
                     "entity_id": "switch.wake_on_lan"
+                  },
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 4
                   }
                 }
               ],
@@ -1161,6 +1165,45 @@
                   "below": 31
                 }
               ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "sensor.pending_update_count",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.pending_update_count",
+                  "above": 0
+                }
+              ],
+              "name": "Pending Update",
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/config/dashboard"
+              }
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "input_boolean.hide_header",
+              "name": {
+                "type": "entity"
+              },
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "input_boolean.hide_header",
+                  "state": "off"
+                }
+              ],
+              "tap_action": {
+                "action": "toggle"
+              }
             }
           ],
           "dense_section_placement": true,
