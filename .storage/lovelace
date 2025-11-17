@@ -195,6 +195,20 @@
                       "type": "conditional",
                       "conditions": [
                         {
+                          "condition": "screen",
+                          "media_query": "(min-width: 768px)"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "sensor.hygrometer_humidity",
+                        "icon_color": "primary"
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
                           "condition": "user",
                           "users": [
                             "7512fc7c361e45879df43f9f0f34fc57",
@@ -456,9 +470,7 @@
                   "tap_action": {
                     "action": "perform-action",
                     "perform_action": "switch.toggle",
-                    "target": {
-                      "entity_id": "switch.lg_tv"
-                    }
+                    "target": {}
                   },
                   "double_tap_action": {
                     "action": "perform-action",
@@ -467,8 +479,7 @@
                       "entity_id": "switch.lovelace_display_laptop"
                     }
                   },
-                  "entity": "switch.lg_tv",
-                  "name": "LG C4",
+                  "entity": "switch.laptop",
                   "show_state": true,
                   "layout_options": {
                     "grid_columns": 2,
@@ -483,8 +494,10 @@
                     }
                   ],
                   "hold_action": {
-                    "action": "navigate",
-                    "navigation_path": "/config/devices/device/f508d24fa76c4e08bbd26dcf03e065e3"
+                    "action": "more-info"
+                  },
+                  "name": {
+                    "type": "device"
                   },
                   "card_mod": {
                     "style": ":host {\n  {% set is_on = is_state('media_player.lg_webos_smart_tv', 'on')%}\n  {% set presence_on = is_state('binary_sensor.desk_motion_sensor_smart_presence', 'on') %}\n  {% set screen_on = is_state('light.lg_display', 'on') %}\n  {% set motion_sensor_on = is_state('switch.lg_tv_motion_sensor', 'on') %}\n\n\n  {% if not motion_sensor_on %}\n    --card-mod-icon: mdi:laptop-off\n  {% elif presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop-account\n  {% elif not presence_on and screen_on %}\n    --card-mod-icon: mdi:laptop\n  {% elif not is_on %}\n    --card-mod-icon: mdi:laptop\n  {% else %}\n    --card-mod-icon: mdi:laptop\n  {% endif %}\n}\n"
@@ -717,7 +730,14 @@
                           "action": "navigate",
                           "navigation_path": "/config/devices/device/d5f80bfb340c88abc138faf9f07c1750"
                         },
-                        "show_state": true
+                        "show_state": true,
+                        "name": {
+                          "type": "device"
+                        },
+                        "double_tap_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/devices/device/d5f80bfb340c88abc138faf9f07c1750"
+                        }
                       }
                     ]
                   },
@@ -729,7 +749,10 @@
                   "left_button_action": {},
                   "right_button": "Dismiss",
                   "target": {
-                    "entity_id": "switch.wake_on_lan"
+                    "entity_id": [
+                      "switch.wake_on_lan",
+                      "switch.laptop"
+                    ]
                   },
                   "grid_options": {
                     "columns": "full",
