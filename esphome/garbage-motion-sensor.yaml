@@ -1,6 +1,6 @@
 esphome:
-  name: garbage-lid
-  friendly_name: Garbage Lid
+  name: kitchen-motion-sensor-2
+  friendly_name: Kitchen Motion Sensor 2
   platformio_options:
     board_build.flash_mode: dio
 
@@ -24,28 +24,28 @@ substitutions:
   static_ip: 192.168.0.111
   reboot_timeout: 1min
 
-servo:
-  - id: servo_motor
-    output: pwm_output
+# servo:
+#   - id: servo_motor
+#     output: pwm_output
 
-# Example output platform
-# On ESP32, use ledc output
-output:
-  - platform: ledc
-    id: pwm_output
-    pin: GPIO4
-    frequency: 50 Hz
+# # Example output platform
+# # On ESP32, use ledc output
+# output:
+#   - platform: ledc
+#     id: pwm_output
+#     pin: GPIO4
+#     frequency: 50 Hz
 
-number:
-  - platform: template
-    name: Servo Control
-    min_value: -100
-    initial_value: 0
-    max_value: 100
-    step: 1
-    optimistic: true
-    set_action:
-      then:
-        - servo.write:
-            id: servo_motor
-            level: !lambda 'return x / 100.0;'
+# number:
+#   - platform: template
+#     name: Servo Control
+#     min_value: -100
+#     initial_value: 0
+#     max_value: 100
+#     step: 1
+#     optimistic: true
+#     set_action:
+#       then:
+#         - servo.write:
+#             id: servo_motor
+#             level: !lambda 'return x / 100.0;'

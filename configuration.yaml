@@ -172,13 +172,13 @@ google_assistant:
       aliases:
         - "fans"
         - "sala fans"
-    fan.sala_stand_fan:
+    switch.sonoff_1002381023_1:
       name: "Stand Fan"
       room: "Living Room"
       aliases:
         - "Sala Stand Fan"
         - "Sala Fan"
-    fan.bedroom_stand_fan:
+    switch.sonoff_100238104e_1:
       name: "Stand Fan"
       room: "Bedroom"
       aliases:
@@ -271,41 +271,6 @@ media_player:
           entity_id: media_player.65c755_television
 
 bluetooth:
-
-fan:
-  - platform: template
-    fans:
-      sala_stand_fan:
-        friendly_name: "Sala Stand Fan"
-        value_template: "{{ states('switch.sonoff_1002381023_1') }}"
-        percentage_template: "{{ 100 }}"
-        set_percentage: []
-        turn_on:
-          action: switch.turn_on
-          target:
-            entity_id: switch.sonoff_1002381023_1
-        turn_off:
-          action: switch.turn_off
-          target:
-            entity_id: switch.sonoff_1002381023_1
-        speed_count: 10
-
-  - platform: template
-    fans:
-      bedroom_stand_fan:
-        friendly_name: "Bedroom Stand Fan"
-        value_template: "{{ states('switch.sonoff_100238104e_1') }}"
-        percentage_template: "{{ 100 }}"
-        set_percentage: []
-        turn_on:
-          action: switch.turn_on
-          target:
-            entity_id: switch.sonoff_100238104e_1
-        turn_off:
-          action: switch.turn_off
-          target:
-            entity_id: switch.sonoff_100238104e_1
-        speed_count: 10
 # Example configuration.yaml entry
 # mqtt:
 #   - device_tracker:
