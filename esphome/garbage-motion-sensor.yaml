@@ -24,6 +24,16 @@ substitutions:
   static_ip: 192.168.0.111
   reboot_timeout: 1min
 
+esp32_ble_tracker:
+  scan_parameters:
+    continuous: true
+    interval: 211ms
+    window: 120ms
+    active: True
+
+bluetooth_proxy:
+  active: true
+
 # servo:
 #   - id: servo_motor
 #     output: pwm_output
